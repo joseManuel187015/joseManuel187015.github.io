@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo: Historia, Juegos y Más</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #1e90ff;
+            --secondary-color: #ffcc00;
+            --background-color: #0d0d0d;
+            --text-color: #e0e0e0;
+            --nav-bg: #1a1a1a;
+            --section-bg: #222;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: url('halo_background.jpg') no-repeat center center/cover;
+        }
+        
+        header {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+        }
+        
+        .hero-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        .hero-button {
+            background: var(--primary-color);
+            color: #fff;
+            font-size: 20px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .hero-button:hover {
+            background: var(--secondary-color);
+            color: #000;
+        }
+        
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .menu-item {
+            background: var(--section-bg);
+            padding: 15px;
+            border-radius: 10px;
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .menu-item a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        .menu-item img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>Halo: Historia, Juegos y Más</header>
+    <div class="hero-container">
+        <div class="hero-text">Explora el universo de Halo y descubre su historia, personajes, razas y tecnología.</div>
+        <a href="Proyecto_historia.html" class="hero-button">Comenzar</a>
+    </div>
+    <div class="menu">
+        <div class="menu-item">
+            <a href="Proyecto_historia.html">Historia</a>
+            <img src="halo_history.jpg" alt="Historia de Halo">
+        </div>
+        <div class="menu-item">
+            <a href="Proyecto_juego.html">Videojuegos</a>
+            <img src="juegos_halo.jfif" alt="Juegos de Halo">
+        </div>
+        <div class="menu-item">
+            <a href="Proyecto_persoonajes.html">Personajes</a>
+            <img src="personajes_halo.jfif" alt="Personajes de Halo">
+        </div>
+        <div class="menu-item">
+            <a href="Proyecto_Razas.html">Razas</a>
+            <img src="razas_halo.jpg" alt="Razas de Halo">
+        </div>
+        <div class="menu-item">
+            <a href="Proyecto_tecnologias.html">Tecnología</a>
+            <img src="tecnologias_halo.jpg" alt="Tecnología de Halo">
+        </div>
+    </div>
+</body>
+</html>
+
+</body>
+</html>
