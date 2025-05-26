@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo 2: La Evolución de una Leyenda</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: #1e90ff;
+            border-bottom: 3px solid #ffcc00;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: #ffcc00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles - Fixed centering */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: #1a73e8;
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: #ff5252;
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+        
+        .dual-wielding {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .covenant-factions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .faction {
+            width: 45%;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        body.light-mode .faction {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo 2: La Evolución de una Leyenda</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo 2 (2004) elevó la saga a nuevos niveles con una narrativa más compleja, gráficos revolucionarios y el innovador modo multijugador en Xbox Live. La historia continúa inmediatamente después de los eventos de Halo CE, con la Tierra siendo atacada por primera vez por el Covenant mientras el Jefe Maestro y el Inquisidor (un Elite deshonrado ahora conocido como el Arbiter) siguen caminos paralelos que convergerán en un destino común.</p>
+        
+        <p>Este juego introdujo mecánicas revolucionarias como el emparejamiento online, el sistema de clan y el doble empuñamiento de armas, estableciendo estándares para toda una generación de shooters.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>El Cairo</h3>
+            <p>La misión inicial donde el Jefe Maestro defiende la estación orbital El Cairo de un ataque Covenant. Aquí recibimos por primera vez el rifle de batalla BR55 y presenciamos la ceremonia de condecoración interrumpida por el ataque. Destaca la épica secuencia donde activamos el detonador de la estación.</p>
+            <img src="img/Mision1.png" alt="Misión El Cairo">
+        </div>
+        
+        <div class="mission">
+            <h3>Outskirts/Metro</h3>
+            <p>El Jefe Maestro lucha en las calles de Nueva Mombasa contra las fuerzas Covenant invasoras. Estas misiones muestran por primera vez entornos urbanos en la saga y presentan combates intensos con vehículos como el Scorpion y el Wraith.</p>
+            <img src="img/Mision2.jpg" alt="Misión Outskirts">
+        </div>
+        
+        <div class="mission">
+            <h3>El Arbiter</h3>
+            <p>Primera misión jugable como el Inquisidor, ahora convertido en el Arbiter. Exploramos las intrigas políticas del Covenant y conocemos a los Profetas de la Verdad, la Piedad y la Misericordia. Esta misión establece el tono más oscuro y político de Halo 2.</p>
+            <img src="img/Mision3.png" alt="Misión Arbiter">
+        </div>
+        
+        <div class="mission">
+            <h3>Delta Halo</h3>
+            <p>Una de las misiones más icónicas, donde el Jefe Maestro aterriza en el segundo anillo Halo descubierto. Combates épicos contra los Brutes y la memorable secuencia del Warthog atravesando el puente mientras explota.</p>
+            <img src="img/Mision4.jpg" alt="Misión Delta Halo">
+        </div>
+        
+        <div class="mission">
+            <h3>Alto Caridad</h3>
+            <p>El Arbiter se infiltra en la capital móvil del Covenant para detener a los Profetas. Esta misión muestra la magnificencia y decadencia de la sociedad Covenant, con entornos arquitectónicos impresionantes y encuentros con Gravemind.</p>
+            <img src="img/Mision5.jpg"Misión Alto Caridad">
+        </div>
+        
+        <div class="mission">
+            <h3>El Gran Viaje</h3>
+            <p>La misión final donde el Jefe Maestro y el Arbiter se unen para detener el activamiento de los anillos Halo. Combates intensos contra Tartarus y los Brutes, culminando con el cliffhanger más famoso de la saga.</p>
+            <img src="img/Mision6.jpg" alt="Misión Gran Viaje">
+        </div>
+
+        <h2>Personajes Clave</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rol</th>
+                <th>Importancia</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>Jefe Maestro (John-117)</td>
+                <td>Protagonista</td>
+                <td>Defensor de la Tierra y héroe del UNSC</td>
+                <td><img class="character-img" src="img/jefe.png" alt="Jefe Maestro"></td>
+            </tr>
+            <tr>
+                <td>El Arbiter (Thel 'Vadam)</td>
+                <td>Protagonista</td>
+                <td>Ex-Inquisidor Covenant que descubre la verdad sobre los Halo</td>
+                <td><img class="character-img" src="img/inquisidor.png" alt="Arbiter"></td>
+            </tr>
+            <tr>
+                <td>Cortana</td>
+                <td>IA</td>
+                <td>Compañera del Jefe Maestro, infectada parcialmente por el Flood</td>
+                <td><img class="character-img" src="img/cortana.png" alt="Cortana"></td>
+            </tr>
+            <tr>
+                <td>Profeta de la Verdad</td>
+                <td>Antagonista</td>
+                <td>Líder del Covenant que busca activar los Halo</td>
+                <td><img class="character-img" src="img/profeta.jpg" alt="Profeta de la Verdad"></td>
+            </tr>
+            <tr>
+                <td>Tartarus</td>
+                <td>Antagonista</td>
+                <td>Líder de los Brutes que ejecuta las órdenes de los Profetas</td>
+                <td><img class="character-img" src="img/tartarus.png" alt="Tartarus"></td>
+            </tr>
+            <tr>
+                <td>Sargento Johnson</td>
+                <td>Aliado</td>
+                <td>Marine veterano que ayuda en varias misiones</td>
+                <td><img class="character-img" src="img/sargento.png" alt="Sargento Johnson"></td>
+            </tr>
+            <tr>
+                <td>Miranda Keyes</td>
+                <td>Aliado</td>
+                <td>Hija del Capitán Keyes y oficial del UNSC</td>
+                <td><img class="character-img" src="img/miranda.png" alt="Miranda Keyes"></td>
+            </tr>
+            <tr>
+                <td>Gravemind</td>
+                <td>Antagonista</td>
+                <td>Entidad colectiva del Flood que manipula eventos</td>
+                <td><img class="character-img" src="img/gravemind.png" alt="Gravemind"></td>
+            </tr>
+        </table>
+
+        <h2>Nuevas Armas y Vehículos</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Rifle de Batalla BR55 <span class="dual-wielding">(Doble)</span></h3>
+                <p>Rifle de precisión con ráfaga de 3 disparos. Preciso a media y larga distancia, puede empuñarse doblemente.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Pistola Magnum M6C <span class="dual-wielding">(Doble)</span></h3>
+                <p>Versión mejorada de la M6D, menos potente pero con mayor cadencia y capacidad de doble empuñamiento.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Rifle de Plasma Covenant <span class="dual-wielding">(Doble)</span></h3>
+                <p>Versión mejorada del rifle de plasma, con mayor cadencia y capacidad de doble empuñamiento.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Espada Energética</h3>
+                <p>Arma cuerpo a cuerpo letal, ahora disponible para los jugadores. Capaz de matar con un solo golpe.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Lanzador de Needler <span class="dual-wielding">(Doble)</span></h3>
+                <p>Ahora puede empuñarse doblemente, aumentando dramáticamente su poder destructivo.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Banshee Mejorado</h3>
+                <p>Versión más ágil del caza Covenant, con ataques de bombardeo adicionales.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Spectre</h3>
+                <p>Vehículo Covenant equivalente al Warthog, con cañón de plasma y capacidad para 4 pasajeros.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Wraith Anti-Aéreo</h3>
+                <p>Versión especial del tanque Covenant con cañones antiaéreos.</p>
+            </div>
+        </div>
+
+        <h2>Facciones del Covenant</h2>
+        <div class="covenant-factions">
+            <div class="faction">
+                <h3>Elites (Sangheili)</h3>
+                <p>Antigua casta guerrera líder, ahora en conflicto con los Brutes. Usan armadura variada y espadas de energía.</p>
+                <p><strong>Unidades:</strong> Minor, Major, Ultra, Zealot, Ranger, Honor Guard</p>
+            </div>
+            <div class="faction">
+                <h3>Brutes (Jiralhanae)</h3>
+                <p>Nueva casta favorita de los Profetas. Más brutales pero menos estratégicos que los Elites.</p>
+                <p><strong>Unidades:</strong> Brute Minor, Brute Major, Brute Captain, Chieftain</p>
+            </div>
+            <div class="faction">
+                <h3>Drones (Yanme'e)</h3>
+                <p>Insectoides voladores que atacan en enjambres. Armados con rifles de plasma.</p>
+                <p><strong>Unidades:</strong> Drone Minor, Drone Major</p>
+            </div>
+            <div class="faction">
+                <h3>Profetas (San 'Shyuum)</h3>
+                <p>Líderes religiosos del Covenant. La Tríada está compuesta por Verdad, Piedad y Misericordia.</p>
+                <p><strong>Unidades:</strong> Profeta Menor, Profeta Mayor</p>
+            </div>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Modificadores de Juego en Halo 2</h3>
+            <p>Las calaveras en Halo 2 (y su versión Anniversary) ofrecen modificadores que alteran la experiencia de juego:</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <ul style="text-align: left;">
+                <li><strong>Boom:</strong> Los enemigos explotan violentamente al morir</li>
+                <li><strong>Grunt Birthday Party:</strong> Los Grunts explotan en confeti con disparos en la cabeza</li>
+                <li><strong>Iron:</strong> Muerte permanente (reinicio de nivel al morir)</li>
+                <li><strong>Black Eye:</strong> Los escudos solo se recargan con daño cuerpo a cuerpo</li>
+                <li><strong>Blind:</strong> Oculta el HUD y la mira</li>
+                <li><strong>Fog:</strong> Desactiva el sensor de movimiento</li>
+                <li><strong>Mythic:</strong> Enemigos con el doble de salud</li>
+                <li><strong>Sputnik:</strong> Física exagerada en cuerpos y objetos</li>
+                <li><strong>IWHBYD:</strong> Activa diálogos raros y divertidos</li>
+            </ul>
+            
+            <p>Encontrar estas calaveras requiere exploración exhaustiva de los niveles, con algunas escondidas en lugares casi inaccesibles.</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/iler0Ecii_Q?si=Gv9-v-ol3mXcCxSz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Las calaveras añaden profundidad al juego y permiten personalizar la experiencia para mayor desafío o diversión.</p>
+        </div>
+
+        <h2>Legado de Halo 2</h2>
+        <p>Halo 2 marcó un antes y después en los shooters con sus innovaciones:</p>
+        <ul style="text-align: left;">
+            <li><strong>Xbox Live:</strong> Revolucionó el multijugador online con emparejamiento automático y sistema de clans</li>
+            <li><strong>Doble empuñamiento:</strong> Mecánica innovadora que permitía combinar armas</li>
+            <li><strong>Narrativa dual:</strong> Primera vez que se jugaba desde la perspectiva Covenant</li>
+            <li><strong>Secuencias cinematográficas:</strong> Cutscenes con calidad de película</li>
+            <li><strong>Forge (precursor):</strong> Bases para el posterior editor de mapas</li>
+            <li><strong>Bots:</strong> Primer juego en usar bots realistas en multijugador</li>
+        </ul>
+        
+        <p>El juego vendió más de 8 millones de copias y su multijugador mantuvo una comunidad activa durante más de una década, hasta el cierre de los servidores originales de Xbox Live.</p>
+        
+        <img src="img/halo2final.jpg" alt="Legado de Halo 2">
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const factions = document.querySelectorAll('.faction');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = '#1a73e8';
+            });
+            h1.style.color = '#1a73e8';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            factions.forEach(faction => {
+                faction.style.backgroundColor = '#e0e0e0';
+            });
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = '#1a73e8';
+                });
+                h1.style.color = '#1a73e8';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#e0e0e0';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = '#ffcc00';
+                });
+                h1.style.color = '#1e90ff';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#333';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
