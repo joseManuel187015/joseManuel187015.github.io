@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo 3: ODST - Los Soldados de las Sombras</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --odst-red: #c62828;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--odst-red);
+            border-bottom: 3px solid #ffcc00;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: var(--odst-red);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--odst-red);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--odst-red);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: var(--odst-red);
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+        
+        .odst-feature {
+            color: var(--odst-red);
+            font-weight: bold;
+        }
+        
+        .squad {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .member {
+            width: 45%;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        body.light-mode .member {
+            background: #e0e0e0;
+        }
+        
+        .audio-log {
+            background-color: #2e2e2e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 5px solid var(--odst-red);
+        }
+        
+        body.light-mode .audio-log {
+            background-color: #f5f5f5;
+        }
+        
+        .night-vision {
+            position: relative;
+        }
+        
+        .night-vision::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 100, 0, 0.1);
+            pointer-events: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo 3: ODST - Los Soldados de las Sombras</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo 3: ODST (2009) ofrece una experiencia única en la saga Halo, poniéndote en la armadura de un soldado Orbital Drop Shock Trooper (ODST) durante la caída de Nueva Mombasa. Con una narrativa no lineal, ambiente noir y un enfoque más táctico y vulnerable, el juego explora los eventos paralelos a Halo 2 desde la perspectiva de los soldados de élite humanos.</p>
+        
+        <p>Protagonizado por "The Rookie", un ODST mudo, el juego combina exploración atmosférica en una ciudad nocturna con intensas misiones de flashback que revelan el destino del Equipo Alpha-Nine.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Prepare to Drop</h3>
+            <p>Introducción cinemática donde el Equipo Alpha-Nine se lanza desde la nave Say My Name hacia Nueva Mombasa, justo cuando el Profeta del Arrepentimiento hace un salto espacial, causando una onda de choque que dispersa a los ODST.</p>
+            <img src="img/mision1.jpg" alt="Prepare to Drop" class="night-vision">
+        </div>
+        
+        <div class="mission">
+            <h3>Mombasa Streets</h3>
+            <p>El Rookie explora las calles nocturnas de Nueva Mombasa en busca de pistas sobre sus compañeros. Esta misión abierta introduce el modo "Visor VISR" y los registros de audio ocultos.</p>
+            <img src="img/mision2.png" alt="Mombasa Streets" class="night-vision">
+        </div>
+        
+        <div class="mission">
+            <h3>Tayari Plaza</h3>
+            <p>Flashback donde Buck y Romeo investigan una instalación de ONI. Notable por los combates en interiores y la primera aparición de los nuevos enemigos "Brute Stalkers".</p>
+            <img src="img/mision3.png" alt="Tayari Plaza">
+        </div>
+        
+        <div class="mission">
+            <h3>Uplift Reserve</h3>
+            <p>Dutch y Mickey defienden una estación de comunicaciones en las afueras de la ciudad. Incluye intensos combates con Wraiths y el uso del nuevo vehículo Cobra.</p>
+            <img src="img/mision4.jpg" alt="Uplift Reserve">
+        </div>
+        
+        <div class="mission">
+            <h3>Kizingo Boulevard</h3>
+            <p>Buck y Dare se infiltran en un edificio de ONI para recuperar datos cruciales. Muestra el lado más sigiloso del juego con secciones de combate limitado.</p>
+            <img src="img/mision5.png" alt="Kizingo Boulevard">
+        </div>
+        
+        <div class="mission">
+            <h3>ONI Alpha Site</h3>
+            <p>El equipo completo asalta una instalación ONI para recuperar a Vergil, una inteligencia artificial. Combates épicos con los nuevos enemigos "Engineers".</p>
+            <img src="img/mision6.png" alt="ONI Alpha Site">
+        </div>
+        
+        <div class="mission">
+            <h3>NMPD HQ</h3>
+            <p>El clímax del juego donde los ODST defienden la comisaría de policía contra oleadas Covenant. Presenta el nuevo vehículo Phantom jugable en la saga.</p>
+            <img src="img/mision7.jpg" alt="NMPD HQ">
+        </div>
+
+        <h2>Equipo Alpha-Nine</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rol</th>
+                <th>Características</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>The Rookie</td>
+                <td>Protagonista</td>
+                <td>ODST mudo cuyo viaje conecta todas las historias</td>
+                <td><img class="character-img" src="img/TheRookie.png" alt="The Rookie"></td>
+            </tr>
+            <tr>
+                <td>Buck (Edward Buck)</td>
+                <td>Líder del equipo</td>
+                <td>Veterano sarcástico interpretado por Nathan Fillion</td>
+                <td><img class="character-img" src="img/Buck(Edward Buck).png" alt="Buck"></td>
+            </tr>
+            <tr>
+                <td>Dutch (Kojo Agu)</td>
+                <td>Especialista en armas pesadas</td>
+                <td>El más fuerte del equipo, experto en explosivos</td>
+                <td><img class="character-img" src="img/Dutch(Kojo Agu).png" alt="Dutch"></td>
+            </tr>
+            <tr>
+                <td>Romeo (Michael Crespo)</td>
+                <td>Francotirador</td>
+                <td>Bravucón y seguro de sí mismo, experto en rifles</td>
+                <td><img class="character-img" src="img/Romeo(Michael Crespo).png" alt="Romeo"></td>
+            </tr>
+            <tr>
+                <td>Mickey (Mickey Crespo)</td>
+                <td>Ingeniero y conductor</td>
+                <td>El más joven del equipo, experto en vehículos</td>
+                <td><img class="character-img" src="img/Mickey(Mickey Crespo).png" alt="Mickey"></td>
+            </tr>
+            <tr>
+                <td>Dare (Veronica Dare)</td>
+                <td>Oficial de ONI</td>
+                <td>Contacto del equipo y antigua relación con Buck</td>
+                <td><img class="character-img" src="img/Dare(Veronica Dare).png" alt="Dare"></td>
+            </tr>
+        </table>
+
+        <h2>Nuevas Mecánicas y Características</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Visor VISR <span class="odst-feature">(Nuevo)</span></h3>
+                <p>Sistema de visión nocturna que resalta enemigos, aliados y objetos en amarillo/verde. Incluye mapa y datos vitales en el HUD.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Pistola Silenciada M7S <span class="odst-feature">(Exclusiva)</span></h3>
+                <p>Versión silenciada de la SMG con mira integrada. Ideal para combate sigiloso.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Rifle de Precisión ODST <span class="odst-feature">(Exclusivo)</span></h3>
+                <p>Rifle de francotirador automático con menor potencia pero mayor cadencia que el SRS99.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Vehículo Cobra <span class="odst-feature">(Nuevo)</span></h3>
+                <p>Artillería autopropulsada con cañones de plasma. Efectivo contra vehículos pesados.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Sistema de Salud <span class="odst-feature">(Cambiado)</span></h3>
+                <p>Los ODST no tienen escudos, solo salud que no se regenera completamente. Similar al sistema de Halo: CE.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Registros de Audio <span class="odst-feature">(Nuevo)</span></h3>
+                <p>30 grabaciones ocultas que expanden la historia de Nueva Mombasa y sus habitantes.</p>
+            </div>
+        </div>
+
+        <h2>Registros de Audio (Audio Logs)</h2>
+        <div class="audio-log">
+            <h3>La Historia de Sadie</h3>
+            <p>Los 30 registros de audio cuentan la historia paralela de Sadie Endesha, una civil atrapada en Nueva Mombasa durante la invasión Covenant:</p>
+            <ul>
+                <li>Revelan la vida en la ciudad antes y durante el ataque</li>
+                <li>Muestran la perspectiva civil de la guerra</li>
+                <li>Conectan con personajes secundarios como el Superintendente</li>
+                <li>Desbloquean el logro "Endure" al encontrarlos todos</li>
+            </ul>
+            <p>Encontrar todos los registros completa la comprensión de la narrativa del juego.</p>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Modificadores de Juego en ODST</h3>
+            <p>Las calaveras en Halo 3: ODST ofrecen modificadores únicos que alteran la experiencia:</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <ul style="text-align: left;">
+                <li><strong>Blind:</strong> Oculta el HUD y la mira</li>
+                <li><strong>Boom:</strong> Explosiones más grandes al morir</li>
+                <li><strong>Catch:</strong> Enemigos lanzan más granadas</li>
+                <li><strong>Fog:</strong> Desactiva el sensor de movimiento</li>
+                <li><strong>Grunt Birthday Party:</strong> Grunts explotan en confeti con disparos en la cabeza</li>
+                <li><strong>Iron:</strong> Muerte permanente (reinicio de nivel)</li>
+                <li><strong>Black Eye:</strong> Salud solo se recupera con daño cuerpo a cuerpo</li>
+                <li><strong>Mythic:</strong> Enemigos tienen el doble de salud</li>
+                <li><strong>IWHBYD:</strong> Activa diálogos raros y divertidos</li>
+            </ul>
+            
+            <p>Encontrar estas calaveras requiere exploración exhaustiva de los niveles, con algunas escondidas en lugares casi inaccesibles.</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/2Ly7fw7UxII?si=DT_ZhEQckRpgmKC_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Las calaveras añaden replay value y permiten personalizar la experiencia para mayor desafío.</p>
+        </div>
+
+        <h2>Legado de Halo 3: ODST</h2>
+        <p>Halo 3: ODST se destaca en la saga por sus innovaciones únicas:</p>
+        <ul style="text-align: left;">
+            <li><strong>Narrativa noir:</strong> Estilo cinematográfico único con elementos de cine negro</li>
+            <li><strong>Protagonista mudo:</strong> El Rookie permite mayor inmersión del jugador</li>
+            <li><strong>Firefight:</strong> Introdujo el modo horda cooperativo a la saga</li>
+            <li><strong>Banda sonora:</strong> Partitura jazzística única de Martin O'Donnell</li>
+            <li><strong>Mundo abierto:</strong> Primera incursión en diseño no lineal para la campaña</li>
+            <li><strong>Perspectiva única:</strong> Muestra la guerra desde la vista de soldados regulares</li>
+        </ul>
+        
+        <p>Aunque inicialmente planeado como expansión, ODST se convirtió en un juego completo que vendió más de 6 millones de copias. Su modo Firefight y su atmósfera única mantienen una comunidad activa hasta hoy.</p>
+        
+        <img src="img/finalHaloodst.jpg" alt="Legado de ODST">
+        
+        <h2>Firefight: El Legado Multijugador</h2>
+        <p>ODST introdujo el modo Firefight, un precursor de los modos horda modernos:</p>
+        <ul style="text-align: left;">
+            <li>Olas progresivamente difíciles de enemigos Covenant</li>
+            <li>Sistema de vidas compartidas entre el equipo</li>
+            <li>Variantes de juego con diferentes reglas</li>
+            <li>Compatibilidad para 4 jugadores en cooperativo</li>
+            <li>Mapas que aprovechan escenarios de la campaña</li>
+        </ul>
+        <p>Este modo se convertiría en un pilar de la franquicia, apareciendo en futuras entregas como Reach y Halo 5.</p>
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const members = document.querySelectorAll('.member');
+        const audioLog = document.querySelector('.audio-log');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--odst-red)';
+            });
+            h1.style.color = 'var(--odst-red)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            members.forEach(member => {
+                member.style.backgroundColor = '#e0e0e0';
+            });
+            audioLog.style.backgroundColor = '#f5f5f5';
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--odst-red)';
+                });
+                h1.style.color = 'var(--odst-red)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                members.forEach(member => {
+                    member.style.backgroundColor = '#e0e0e0';
+                });
+                audioLog.style.backgroundColor = '#f5f5f5';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--odst-red)';
+                });
+                h1.style.color = 'var(--odst-red)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                members.forEach(member => {
+                    member.style.backgroundColor = '#333';
+                });
+                audioLog.style.backgroundColor = '#2e2e2e';
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
