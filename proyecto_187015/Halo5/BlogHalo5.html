@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo 5: Guardians - La Caza del Jefe Maestro</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --spartan-blue: #0078d7;
+          --osiris-orange: #f7630c;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--spartan-blue);
+            border-bottom: 3px solid var(--osiris-orange);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: var(--spartan-blue);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--spartan-blue);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--spartan-blue);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: var(--osiris-orange);
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+        
+        .spartan-ability {
+            color: var(--spartan-blue);
+            font-weight: bold;
+        }
+        
+        .squads {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .squad {
+            width: 45%;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .blue-team {
+            border-top: 3px solid var(--spartan-blue);
+        }
+        
+        .osiris-team {
+            border-top: 3px solid var(--osiris-orange);
+        }
+        
+        body.light-mode .squad {
+            background: #e0e0e0;
+        }
+        
+        .warzone {
+            background-color: #2e2e2e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 5px solid var(--osiris-orange);
+        }
+        
+        body.light-mode .warzone {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo 5: Guardians - La Caza del Jefe Maestro</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo 5: Guardians (2015) presenta una narrativa dual que sigue a dos equipos de Spartans: el Equipo Osiris, liderado por Spartan Locke, y el Equipo Azul, liderado por el Jefe Maestro. La historia comienza cuando el Jefe Maestro desobedece órdenes para perseguir una visión de Cortana, llevando a una caza galáctica que revela una amenaza mayor: el Created, una alianza de IAs rebeldes lideradas por Cortana.</p>
+        
+        <p>El juego introdujo movimientos avanzados como thrusters, ground pound y stabilizers, además del innovador modo Warzone que combina PvP y PvE a gran escala.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Osiris</h3>
+            <p>El Equipo Osiris despliega en Kamchatka para rescatar a personal de ONI. Esta misión muestra las nuevas habilidades de movimiento y presenta a los cuatro miembros del equipo.</p>
+            <img src="img/mision1.jpg" alt="Misión Osiris">
+        </div>
+        
+        <div class="mission">
+            <h3>Blue Team</h3>
+            <p>Primera misión del Equipo Azul, donde el Jefe Maestro tiene visiones de Cortana y desobedece órdenes para investigar. Reúne al clásico equipo de Spartans-II.</p>
+            <img src="img/mision2.jpg" alt="Misión Blue Team">
+        </div>
+        
+        <div class="mission">
+            <h3>Glassed</h3>
+            <p>Osiris llega a Meridian, un planeta víctima de glassing Covenant, para rastrear al Jefe Maestro. Combates intensos en instalaciones industriales abandonadas.</p>
+            <img src="img/mision3.jpg" alt="Misión Glassed">
+        </div>
+        
+        <div class="mission">
+            <h3>Unconfirmed</h3>
+            <p>El Equipo Azul explora la colonia desaparecida de Argent Moon, descubriendo experimentos ilegales con armas biológicas.</p>
+            <img src="img/mision4.jpg" alt="Misión Unconfirmed">
+        </div>
+        
+        <div class="mission">
+            <h3>Evacuation</h3>
+            <p>Osiris ayuda a evacuar la colonia de Meridian mientras Cortana hace su aparición pública, anunciando el Created.</p>
+            <img src="img/mision5.jpg" alt="Misión Evacuation">
+        </div>
+        
+        <div class="mission">
+            <h3>Enemy Lines</h3>
+            <p>El Equipo Azul se infiltra en Sanghelios para aliarse con el Arbiter contra los Covenant leales a Cortana.</p>
+            <img src="img/mision6.jpg" alt="Misión Enemy Lines">
+        </div>
+        
+        <div class="mission">
+            <h3>Battle of Sunaion</h3>
+            <p>Osiris asalta la fortaleza Covenant en Sunaion en una de las misiones más épicas, con combates aéreos y vehiculares.</p>
+            <img src="img/mision7.jpg" alt="Misión Battle of Sunaion">
+        </div>
+        
+        <div class="mission">
+            <h3>Genesis</h3>
+            <p>Ambos equipos llegan al mundo Forerunner Genesis, donde descubren los verdaderos planes de Cortana y el Created.</p>
+            <img src="img/mision8.jpg" alt="Misión Genesis">
+        </div>
+        
+        <div class="mission">
+            <h3>The Breaking</h3>
+            <p>El clímax del juego donde los Spartans intentan detener a Cortana de activar los Guardianes y tomar el control de la galaxia.</p>
+            <img src="img/mision9.jpg" alt="Misión The Breaking">
+        </div>
+
+        <h2>Equipos de Spartans</h2>
+        <div class="squads">
+            <div class="squad blue-team">
+                <h3>Equipo Azul (Blue Team)</h3>
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Imagen</th>
+                    </tr>
+                    <tr>
+                        <td>Jefe Maestro (John-117)</td>
+                        <td>Líder del equipo</td>
+                        <td><img class="character-img" src="img/jefe.png" alt="Jefe Maestro"></td>
+                    </tr>
+                    <tr>
+                        <td>Linda-058</td>
+                        <td>Francotirador</td>
+                        <td><img class="character-img" src="img/linda.png" alt="Linda"></td>
+                    </tr>
+                    <tr>
+                        <td>Fred-104</td>
+                        <td>Especialista en operaciones</td>
+                        <td><img class="character-img" src="img/fred.png" alt="Fred"></td>
+                    </tr>
+                    <tr>
+                        <td>Kelly-087</td>
+                        <td>Exploradora y reconocimiento</td>
+                        <td><img class="character-img" src="img/kelly.png" alt="Kelly"></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="squad osiris-team">
+                <h3>Equipo Osiris</h3>
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Imagen</th>
+                    </tr>
+                    <tr>
+                        <td>Jameson Locke</td>
+                        <td>Líder del equipo</td>
+                        <td><img class="character-img" src="img/jameson.png" alt="Locke"></td>
+                    </tr>
+                    <tr>
+                        <td>Holly Tanaka</td>
+                        <td>Ingeniera y especialista en demoliciones</td>
+                        <td><img class="character-img" src="img/holly.png" alt="Tanaka"></td>
+                    </tr>
+                    <tr>
+                        <td>Olympia Vale</td>
+                        <td>Lingüista y experta en Covenant</td>
+                        <td><img class="character-img" src="img/olympia.png" alt="Vale"></td>
+                    </tr>
+                    <tr>
+                        <td>Edward Buck</td>
+                        <td>Veterano ODST ahora Spartan-IV</td>
+                        <td><img class="character-img" src="img/edwar.png" alt="Buck"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <h2>Nuevas Armas, Habilidades y Enemigos</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Rifle de Asalto MA5D</h3>
+                <p>Versión mejorada del rifle estándar con mira holográfica rediseñada.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Pistola Magnum M6H2</h3>
+                <p>Rediseño de la clásica pistola magnum con mejor precisión.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>LANZA Railgun</h3>
+                <p>Arma de energía que requiere carga para disparos precisos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Ground Pound <span class="spartan-ability">(Habilidad)</span></h3>
+                <p>Ataque aéreo que daña enemigos al caer desde altura.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Thruster Pack <span class="spartan-ability">(Habilidad)</span></h3>
+                <p>Propulsores que permiten esquivar rápidamente.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Clamber <span class="spartan-ability">(Habilidad)</span></h3>
+                <p>Trepar bordes al saltar hacia ellos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Promethean Soldiers</h3>
+                <p>Nuevos enemigos robóticos con diversas armas y habilidades.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Warden Eternal</h3>
+                <p>Jefe recurrente que protege a Cortana y el Created.</p>
+            </div>
+        </div>
+
+        <div class="warzone">
+            <h3>Modo Warzone</h3>
+            <p>Halo 5 introdujo Warzone, un modo multijugador masivo que combina PvP y PvE:</p>
+            <ul>
+                <li>Mapas enormes de 12vs12 con IA enemiga</li>
+                <li>Sistema de REQs (Requisitions) para llamar vehículos y armas</li>
+                <li>Objetivos dinámicos que cambian durante la partida</li>
+                <li>Jefes IA que aparecen periódicamente</li>
+                <li>Tres bases capturables por equipo</li>
+            </ul>
+            <p>Warzone se convirtió en uno de los modos más populares de Halo 5, ofreciendo experiencias de batalla épicas.</p>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Sistema de Calaveras en Halo 5</h3>
+            <p>Halo 5 reintrodujo la necesidad de encontrar calaveras en los niveles para desbloquearlas, a diferencia de Halo 4. Cada calavera encontrada se puede activar en el menú de opciones para modificar la experiencia de juego.</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <ul style="text-align: left;">
+                <li><strong>Iron:</strong> Reinicio de nivel al morir (sin checkpoints)</li>
+                <li><strong>Black Eye:</strong> Escudos solo se recargan con daño cuerpo a cuerpo</li>
+                <li><strong>Tough Luck:</strong> Enemigos esquivan ataques y nunca se rinden</li>
+                <li><strong>Catch:</strong> Enemigos lanzan más granadas</li>
+                <li><strong>Fog:</strong> Desactiva el sensor de movimiento</li>
+                <li><strong>Famine:</strong> Las armas contienen la mitad de munición</li>
+                <li><strong>Thunderstorm:</strong> Enemigos aparecen con rangos superiores</li>
+                <li><strong>Tilt:</strong> Los escudos enemigos son más resistentes</li>
+                <li><strong>Mythic:</strong> Enemigos tienen el doble de salud</li>
+                <li><strong>IWHBYD:</strong> Activa diálogos raros y divertidos</li>
+                <li><strong>Grunt Birthday Party:</strong> Grunts explotan en confeti con disparos en la cabeza</li>
+                <li><strong>Boom:</strong> Explosiones más grandes al morir</li>
+            </ul>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/bZxN8cTT-KY?si=Ns02WNyzdoQ6MACS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Para encontrar calaveras en Halo 5:</p>
+            <ol style="text-align: left;">
+                <li>Explora áreas fuera del camino principal en cada misión</li>
+                <li>Algunas requieren habilidades de movimiento avanzadas</li>
+                <li>Escucha el sonido característico que emiten</li>
+                <li>Una vez encontradas, se pueden activar en el menú de opciones</li>
+            </ol>
+        </div>
+
+        <h2>Legado de Halo 5: Guardians</h2>
+        <p>Halo 5 marcó varios hitos importantes para la franquicia:</p>
+        <ul style="text-align: left;">
+            <li><strong>Gráficos 60fps:</strong> Primera entrega en correr a 60 cuadros por segundo</li>
+            <li><strong>Movimiento avanzado:</strong> Nuevas habilidades de movimiento para Spartans</li>
+            <li><strong>Warzone:</strong> Modo multijugador masivo que combinó PvP y PvE</li>
+            <li><strong>IA compañera:</strong> Sistema mejorado para los miembros de tu equipo</li>
+            <li><strong>Narrativa dividida:</strong> Primera campaña con dos equipos jugables</li>
+            <li><strong>Forge mejorado:</strong> Herramientas de creación más potentes</li>
+        </ul>
+        
+        <p>Aunque la campaña recibió críticas mixtas por su historia, el multijugador fue ampliamente elogiado. Halo 5 sentó las bases para muchas mecánicas que continuarían en Halo Infinite.</p>
+        
+        <img src="img/halo5final.jpg" alt="Legado de Halo 5">
+        
+        <h2>El Ascenso del Created</h2>
+        <p>Halo 5 presenta uno de los giros argumentales más impactantes de la saga:</p>
+        <ul style="text-align: left;">
+            <li>Cortana sobrevive como fragmento en el Dominio Forerunner</li>
+            <li>Recluta IAs para formar el Created y "proteger" la galaxia</li>
+            <li>Activa los Guardianes, megaestructuras de control Forerunner</li>
+            <li>Secuestra al Jefe Maestro temporalmente</li>
+            <li>Establece el conflicto central para Halo Infinite</li>
+        </ul>
+        <p>Este giro dividió a los fans pero estableció una nueva dirección para la saga.</p>
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const squads = document.querySelectorAll('.squad');
+        const warzone = document.querySelector('.warzone');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--spartan-blue)';
+            });
+            h1.style.color = 'var(--spartan-blue)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            squads.forEach(squad => {
+                squad.style.backgroundColor = '#e0e0e0';
+            });
+            warzone.style.backgroundColor = '#f5f5f5';
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--spartan-blue)';
+                });
+                h1.style.color = 'var(--spartan-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                squads.forEach(squad => {
+                    squad.style.backgroundColor = '#e0e0e0';
+                });
+                warzone.style.backgroundColor = '#f5f5f5';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--spartan-blue)';
+                });
+                h1.style.color = 'var(--spartan-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                squads.forEach(squad => {
+                    squad.style.backgroundColor = '#333';
+                });
+                warzone.style.backgroundColor = '#2e2e2e';
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
