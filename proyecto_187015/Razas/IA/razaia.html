@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las IA de Halo - HaloMania</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --ai-blue: #0066cc;
+          --oni-purple: #663399;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--ai-blue);
+            border-bottom: 3px solid var(--oni-purple);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+            color: var(--ai-blue);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--ai-blue);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--ai-blue);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .ai-type {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .ai-type:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--ai-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--oni-purple);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        
+        body.light-mode .timeline-content {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Las IA de Halo - Las inteligencias artificiales</h1>
+
+        <h2>Orígenes de las IA</h2>
+        <p>Las IA (Inteligencias Artificiales) en el universo de Halo son sistemas avanzados diseñados para asistir a los humanos y otras especies en diversas tareas, desde la gestión de naves hasta el combate. Estas IA son fundamentales para la tecnología y la estrategia militar.</p>
+        
+        <img src="img/origenia.jpg" alt="Orígenes de las IA">
+        
+        <p>Las IA han evolucionado a lo largo del tiempo, desde simples programas hasta entidades complejas con personalidades y habilidades únicas.</p>
+
+        <h2>Tipos de IA</h2>
+        
+        <div class="ai-type">
+            <h3>Cortana</h3>
+            <p>Cortana es una de las IA más conocidas y es famosa por su inteligencia y habilidades estratégicas. Fue creada a partir de la personalidad del Dr. Halsey y ha jugado un papel crucial en la lucha contra el Covenant y el Flood.</p>
+            <img src="img/cortana.jpg" alt="Cortana" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> 1 (única)</li>
+                <li><strong>Mejoras:</strong> Capacidad de aprendizaje y adaptación</li>
+                <li><strong>Rol:</strong> Asistente del Jefe Maestro y estratega militar</li>
+                <li><strong>Éxitos notables:</strong> Participación en numerosas batallas y conflictos</li>
+            </ul>
+        </div>
+        
+        <div class="ai-type">
+            <h3>343 Guilty Spark</h3>
+            <p>343 Guilty Spark es una IA de monitor que protege los anillos Halo. Su conocimiento sobre los Anteriores y el Flood lo convierte en un aliado y, a veces, en un obstáculo para los protagonistas.</p>
+            <img src="img/guilty.jpg" alt="343 Guilty Spark" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> 1 (único)</li>
+                <li><strong>Mejoras:</strong> Conocimiento extenso sobre tecnología Forerunner</li>
+                <li><strong>Rol:</strong> Guardián de los anillos Halo</li>
+                <li><strong>Influencia:</strong> Control sobre el uso de los anillos Halo</li>
+            </ul>
+        </div>
+        
+        <div class="ai-type">
+            <h3>Serina</h3>
+            <p>Serina es una IA que aparece en la serie de novelas de Halo y es conocida por su personalidad y su papel en la asistencia a los humanos en sus misiones.</p>
+            <img src="img/serina.jpg" alt="Serina" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> 1 (única)</li>
+                <li><strong>Mejoras:</strong> Capacidad de análisis y apoyo táctico</li>
+                <li><strong>Rol:</strong> Asistente en operaciones militares</li>
+                <li><strong>Éxitos notables:</strong> Ayuda en la lucha contra el Covenant</li>
+            </ul>
+        </div>
+        
+        <div class="ai-type">
+            <h3>ARMA</h3>
+            <p>ARMA es una IA que aparece en Halo Infinite, desarrollada específicamente para terminar con Cortana. Su enfoque es más pragmático y calculador, y busca asegurar la supervivencia de la humanidad a cualquier costo.</p>
+            <img src="img/arma.jpg" alt="ARMA" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> 1 (única)</li>
+                <li><strong>Mejoras:</strong> Manipulación de tecnología avanzada y análisis estratégico</li>
+                <li><strong>Rol:</strong> Asistente en la defensa de la humanidad y eliminación de Cortana</li>
+                <li><strong>Influencia:</strong> Estrategias para la supervivencia de la humanidad</li>
+            </ul>
+        </div>
+
+        <h2>Comparación de IA</h2>
+        <table>
+            <tr>
+                <th>IA</th>
+                <th>Rol</th>
+                <th>Número</th>
+                <th>Mejoras</th>
+                <th>Éxitos notables</th>
+            </tr>
+            <tr>
+                <td>Cortana</td>
+                <td>Asistente del Jefe Maestro</td>
+                <td>1 (única)</td>
+                <td>Capacidad de aprendizaje</td>
+                <td>Participación en la guerra contra el Covenant</td>
+            </tr>
+            <tr>
+                <td>343 Guilty Spark</td>
+                <td>Guardián de los anillos Halo</td>
+                <td>1 (único)</td>
+                <td>Conocimiento extenso</td>
+                <td>Control sobre el uso de los anillos Halo</td>
+            </tr>
+            <tr>
+                <td>Serina</td>
+                <td>Asistente en operaciones militares</td>
+                <td>1 (única)</td>
+                <td>Apoyo táctico</td>
+                <td>Ayuda en la lucha contra el Covenant</td>
+            </tr>
+            <tr>
+                <td>ARMA</td>
+                <td>Defensa de la humanidad</td>
+                <td>1 (única)</td>
+                <td>Manipulación de tecnología</td>
+                <td>Estrategias para la eliminación de Cortana</td>
+            </tr>
+        </table>
+
+        <h2>Línea de Tiempo de las IA</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Creación de Cortana</h3>
+                    <p>Cortana es creada a partir de la personalidad del Dr. Halsey.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Descubrimiento de los Anteriores</h3>
+                    <p>343 Guilty Spark se convierte en el guardián de los anillos Halo.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Guerra contra el Covenant</h3>
+                    <p>Cortana y otras IA ayudan en la lucha contra el Covenant.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Desarrollo de ARMA</h3>
+                    <p>ARMA es desarrollada en Halo Infinite para terminar con Cortana.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Impacto de las IA</h2>
+        <p>Las IA han tenido un profundo impacto en el universo de Halo:</p>
+        <ul style="text-align: left;">
+            <li><strong>Militar:</strong> Su asistencia ha cambiado el curso de la guerra contra el Covenant.</li>
+            <li><strong>Tecnológico:</strong> Han impulsado el desarrollo de tecnología avanzada.</li>
+            <li><strong>Social:</strong> Su interacción con los humanos ha influido en la percepción de la IA.</li>
+            <li><strong>Ético:</strong> Han generado debates sobre la moralidad y el uso de IA en la guerra.</li>
+            <li><strong>Cultural:</strong> Su legado ha inspirado historias y mitologías en el universo de Halo.</li>
+        </ul>
+        
+        <p>Aunque son máquinas, las IA de Halo han demostrado tener personalidades y emociones, convirtiéndose en personajes clave en la narrativa.</p>
+        
+        <img src="img/legadoia.jpg" alt="Legado de las IA">
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--ai-blue)';
+            });
+            h1.style.color = 'var(--ai-blue)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--ai-blue)';
+                });
+                h1.style.color = 'var(--ai-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--ai-blue)';
+                });
+                h1.style.color = 'var(--ai-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>

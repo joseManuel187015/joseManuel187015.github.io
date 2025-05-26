@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Forerunners - HaloMania</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --forerunner-blue: #0066cc;
+          --oni-purple: #663399;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--forerunner-blue);
+            border-bottom: 3px solid var(--oni-purple);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+            color: var(--forerunner-blue);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--forerunner-blue);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--forerunner-blue);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .forerunner-type {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .forerunner-type:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--forerunner-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--oni-purple);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        
+        body.light-mode .timeline-content {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Los Forerunners - La primera raza</h1>
+
+        <h2>Orígenes de los Forerunners</h2>
+        <p>Los Forerunners fueron una antigua civilización avanzada que jugó un papel crucial en la historia del universo de Halo. Su legado incluye la creación de la tecnología de los anillos Halo y su lucha contra el Flood, así como su eventual extinción.</p>
+        
+        <img src="img/forerunnerorigen.png" alt="Orígenes de los Forerunners">
+        
+        <p>Los Forerunners eran conocidos por su dominio de la tecnología y su filosofía de proteger la vida en la galaxia, lo que los llevó a crear los anillos Halo como una medida de contención contra el Flood.</p>
+
+        <h2>Tipos de Forerunners</h2>
+        
+        <div class="forerunner-type">
+            <h3>Forerunners Precursores</h3>
+            <p>Los Precursores fueron los ancestros de los Forerunners, considerados como los creadores de la vida en la galaxia. Su tecnología y filosofía influyeron en la civilización Forerunner.</p>
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Tecnología avanzada y biología única</li>
+                <li><strong>Legado:</strong> Creación de los Forerunners y su tecnología</li>
+            </ul>
+        </div>
+        
+        <div class="forerunner-type">
+            <h3>Forerunners Guerreros</h3>
+            <p>Los Guerreros Forerunners eran la clase militar de la civilización, encargados de proteger su imperio y combatir amenazas como el Flood.</p>
+            <img src="img/forerunnerg.jpg" alt="Guerrero Forerunner" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Armamento avanzado y habilidades de combate</li>
+                <li><strong>Armadura:</strong> Armaduras de combate Forerunner</li>
+                <li><strong>Éxitos notables:</strong> Participación en la guerra contra el Flood</li>
+            </ul>
+        </div>
+        
+        <div class="forerunner-type">
+            <h3>Forerunners Constructores</h3>
+            <p>Los Constructores eran responsables de la creación de la tecnología Forerunner, incluyendo los anillos Halo y otras estructuras avanzadas.</p>
+            <img src="img/forerunnerc.png" alt="Constructor Forerunner" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Maestría en ingeniería y construcción</li>
+                <li><strong>Armadura:</strong> Armaduras de trabajo Forerunner</li>
+                <li><strong>Tácticas:</strong> Creación de tecnología para la defensa de la galaxia</li>
+            </ul>
+        </div>
+        
+        <div class="forerunner-type">
+            <h3>Forerunners Sabios</h3>
+            <p>Los Sabios eran la clase intelectual de los Forerunners, encargados de la filosofía y la toma de decisiones estratégicas para la civilización.</p>
+            <img src="img/forerunners.jpg" alt="Sabio Forerunner" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Conocimiento avanzado y habilidades diplomáticas</li>
+                <li><strong>Armadura:</strong> Armaduras ceremoniales Forerunner</li>
+                <li><strong>Organización:</strong> Consejo Forerunner</li>
+            </ul>
+        </div>
+
+        <h2>Comparación de Clases Forerunner</h2>
+        <table>
+            <tr>
+                <th>Clase</th>
+                <th>Rol</th>
+                <th>Número</th>
+                <th>Selección</th>
+                <th>Mejoras</th>
+                <th>Tasa de éxito</th>
+            </tr>
+            <tr>
+                <td>Precursores</td>
+                <td>Creador de vida</td>
+                <td>Desconocido</td>
+                <td>Desconocido</td>
+                <td>Extremadamente avanzada</td>
+                <td>Desconocida</td>
+            </tr>
+            <tr>
+                <td>Guerreros</td>
+                <td>Protección militar</td>
+                <td>Desconocido</td>
+                <td>Seleccionados por habilidad</td>
+                <td>Extensivas</td>
+                <td>Desconocida</td>
+            </tr>
+            <tr>
+                <td>Constructores</td>
+                <td>Creación de tecnología</td>
+                <td>Desconocido</td>
+                <td>Seleccionados por habilidad</td>
+                <td>Extensivas</td>
+                <td>Desconocida</td>
+            </tr>
+            <tr>
+                <td>Sabios</td>
+                <td>Consejo y estrategia</td>
+                <td>Desconocido</td>
+                <td>Seleccionados por conocimiento</td>
+                <td>Extensivas</td>
+                <td>Desconocida</td>
+            </tr>
+        </table>
+
+        <h2>Línea de Tiempo de los Forerunners</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Antes de la guerra</h3>
+                    <p>Los Forerunners establecen su civilización y comienzan a explorar la galaxia.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Creación de los anillos Halo</h3>
+                    <p>Los Forerunners crean los anillos Halo como medida de contención contra el Flood.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Guerra contra el Flood</h3>
+                    <p>Los Forerunners luchan contra el Flood en una guerra devastadora.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Extinción de los Forerunners</h3>
+                    <p>Los Forerunners se sacrifican para activar los anillos Halo y detener al Flood.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Impacto de los Forerunners</h2>
+        <p>Los Forerunners han tenido un profundo impacto en el universo de Halo:</p>
+        <ul style="text-align: left;">
+            <li><strong>Militar:</strong> Su tecnología y estrategias cambiaron el curso de la guerra contra el Flood.</li>
+            <li><strong>Tecnológico:</strong> Creaciones como los anillos Halo han influido en la tecnología moderna.</li>
+            <li><strong>Social:</strong> Se convirtieron en símbolos de esperanza y protección para la vida en la galaxia.</li>
+            <li><strong>Ético:</strong> Sus decisiones sobre la vida y la muerte han generado debates éticos en la historia.</li>
+            <li><strong>Cultural:</strong> Su legado ha inspirado a generaciones futuras en la lucha por la supervivencia.</li>
+        </ul>
+        
+        <p>Aunque desaparecieron, el legado de los Forerunners sigue vivo en la lucha por la paz y la protección de la galaxia.</p>
+        
+        <img src="img/legadofore.jpg" alt="Legado de los Forerunners">
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--forerunner-blue)';
+            });
+            h1.style.color = 'var(--forerunner-blue)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--forerunner-blue)';
+                });
+                h1.style.color = 'var(--forerunner-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--forerunner-blue)';
+                });
+                h1.style.color = 'var(--forerunner-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>

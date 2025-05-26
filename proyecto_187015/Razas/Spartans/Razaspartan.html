@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Spartans - HaloMania</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --spartan-blue: #0066cc;
+          --oni-purple: #663399;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--spartan-blue);
+            border-bottom: 3px solid var(--oni-purple);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+            color: var(--spartan-blue);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--spartan-blue);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--spartan-blue);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .spartan-type {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .spartan-type:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--spartan-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--oni-purple);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        
+        body.light-mode .timeline-content {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Los Spartans - La Élite de Halo</h1>
+
+        <h2>Orígenes de los Spartans</h2>
+        <p>Los Spartans son soldados de élite mejorados genéticamente y equipados con armadura de alta tecnología, creados por la Oficina de Inteligencia Naval (ONI) para enfrentar amenazas a la seguridad humana. El programa Spartan comenzó como una iniciativa secreta durante los conflictos internos de la UEG (Unified Earth Government) y se convirtió en la última línea de defensa contra el Covenant.</p>
+        
+        <img src="img/origen.jpg" alt="Orígenes de los Spartans">
+        
+        <p>El Dr. Catherine Halsey fue la mente maestra detrás de los programas Spartan-II y Spartan-III, desarrollando tanto las mejoras biológicas como la tecnología de armadura Mjolnir que los hace tan formidables.</p>
+
+        <h2>Tipos de Spartans</h2>
+        
+        <div class="spartan-type">
+            <h3>SPARTAN-I (Proyecto ORION)</h3>
+            <p>Los primeros intentos de crear supersoldados, iniciados en 2491. Los candidatos eran voluntarios adultos de las fuerzas especiales que recibieron mejoras quirúrgicas y farmacológicas limitadas.</p>
+            <ul>
+                <li><strong>Número estimado:</strong> 150-300</li>
+                <li><strong>Mejoras:</strong> Aumento de fuerza, reflejos y resistencia</li>
+                <li><strong>Armadura:</strong> Sin armadura especializada</li>
+                <li><strong>Resultados:</strong> Mejoras modestas, alta tasa de rechazo</li>
+            </ul>
+            <p>El programa fue cancelado en 2506 pero sentó las bases para generaciones posteriores.</p>
+        </div>
+        
+        <div class="spartan-type">
+            <h3>SPARTAN-II</h3>
+            <p>El programa definitivo iniciado en 2517 bajo la dirección de la Dra. Halsey. Niños genéticamente perfectos fueron secuestrados a los 6 años y reemplazados por clones que morirían poco después.</p>
+            <img src="img/spartan2.png" alt="Spartan-II" class="character-img">
+            <ul>
+                <li><strong>Número inicial:</strong> 75 candidatos, 33 sobrevivieron al proceso</li>
+                <li><strong>Mejoras:</strong> Aumento de densidad ósea, músculos reforzados, reflejos mejorados, visión nocturna</li>
+                <li><strong>Armadura:</strong> MJOLNIR Mark IV y posteriores</li>
+                <li><strong>Éxitos notables:</strong> John-117 (Jefe Maestro), Linda-058, Kelly-087</li>
+            </ul>
+            <p>Considerados los Spartans más efectivos, aunque con altas tasas de mortalidad durante el proceso de mejora.</p>
+        </div>
+        
+        <div class="spartan-type">
+            <h3>SPARTAN-III</h3>
+            <p>Programa iniciado en 2531 para producir Spartans en masa con menor costo y tiempo de entrenamiento. Usaban niños huérfanos por la guerra con el Covenant.</p>
+            <img src="img/spartan3.jpg" alt="Spartan-III" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> ~900 divididos en compañías (Alpha, Beta, Gamma)</li>
+                <li><strong>Mejoras:</strong> Versión mejorada pero más segura de los químicos Spartan-II</li>
+                <li><strong>Armadura:</strong> SPI (Semi-Powered Infiltration) más ligera que MJOLNIR</li>
+                <li><strong>Tácticas:</strong> Misiones suicidas contra objetivos estratégicos Covenant</li>
+            </ul>
+            <p>Los Spartan-III eran más numerosos pero menos duraderos que los Spartan-II, diseñados para misiones de alto riesgo.</p>
+        </div>
+        
+        <div class="spartan-type">
+            <h3>SPARTAN-IV</h3>
+            <p>Programa iniciado después de la guerra con el Covenant en 2553. Los candidatos son adultos voluntarios de las fuerzas especiales, eliminando los problemas éticos de generaciones anteriores.</p>
+            <img src="img/spartan4.jpg" alt="Spartan-IV" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> 300-500 activos</li>
+                <li><strong>Mejoras:</strong> Menos invasivas que Spartan-II pero combinadas con mejor tecnología</li>
+                <li><strong>Armadura:</strong> MJOLNIR GEN2 con más opciones de personalización</li>
+                <li><strong>Organización:</strong> Spartan Operations (SPARTAN OPS) bajo el UNSC</li>
+            </ul>
+            <p>Los Spartan-IV representan la democratización del programa Spartan, con menos riesgos pero también menos capacidades que los Spartan-II.</p>
+        </div>
+
+        <h2>Comparación de Generaciones Spartan</h2>
+        <table>
+            <tr>
+                <th>Generación</th>
+                <th>Años activos</th>
+                <th>Número</th>
+                <th>Selección</th>
+                <th>Mejoras</th>
+                <th>Tasa de éxito</th>
+            </tr>
+            <tr>
+                <td>Spartan-I (ORION)</td>
+                <td>2491-2506</td>
+                <td>~150-300</td>
+                <td>Adultos voluntarios</td>
+                <td>Limitadas</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Spartan-II</td>
+                <td>2517-presente</td>
+                <td>33 iniciales</td>
+                <td>Niños genéticamente perfectos</td>
+                <td>Extensivas</td>
+                <td>44%</td>
+            </tr>
+            <tr>
+                <td>Spartan-III</td>
+                <td>2531-2552</td>
+                <td>~900</td>
+                <td>Niños huérfanos de guerra</td>
+                <td>Moderadas</td>
+                <td>100% (pero alta mortalidad en misiones)</td>
+            </tr>
+            <tr>
+                <td>Spartan-IV</td>
+                <td>2553-presente</td>
+                <td>300-500</td>
+                <td>Adultos voluntarios de élite</td>
+                <td>Menos invasivas</td>
+                <td>95%</td>
+            </tr>
+        </table>
+
+        <h2>Línea de Tiempo del Programa Spartan</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2491</h3>
+                    <p>Inicio del Proyecto ORION (Spartan-I) bajo el Coronel James Ackerson</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2506</h3>
+                    <p>Cancelación del Proyecto ORION por resultados limitados</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2517</h3>
+                    <p>Dra. Halsey inicia el Programa Spartan-II con 75 niños reclutados</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2525</h3>
+                    <p>Primera misión de los Spartan-II contra rebeldes humanos</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2531</h3>
+                    <p>Inicio del Programa Spartan-III bajo el Coronel James Ackerson</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2536</h3>
+                    <p>Compañía Alpha de Spartan-III completa su entrenamiento</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2552</h3>
+                    <p>Batalla de Reach y caída de muchos Spartan-II</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2553</h3>
+                    <p>Inicio del Programa Spartan-IV post-guerra con el Covenant</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Impacto de los Spartans</h2>
+        <p>Los programas Spartan han tenido un profundo impacto en el universo de Halo:</p>
+        <ul style="text-align: left;">
+            <li><strong>Militar:</strong> Cambiaron el curso de la guerra contra el Covenant, siendo los únicos capaces de enfrentarse a ellos con éxito</li>
+            <li><strong>Tecnológico:</strong> Desarrollos como la armadura MJOLNIR han beneficiado a todo el UNSC</li>
+            <li><strong>Social:</strong> Se convirtieron en símbolos de esperanza para la humanidad</li>
+            <li><strong>Ético:</strong> Los métodos de reclutamiento generaron controversias que persisten décadas después</li>
+            <li><strong>Cultural:</strong> Inspiraron nuevas generaciones de soldados y civiles</li>
+        </ul>
+        
+        <p>Aunque creados como herramientas de guerra, muchos Spartans han demostrado humanidad y liderazgo en los momentos más oscuros de la historia humana.</p>
+        
+        <img src="img/legadospartan.jpg" alt="Legado de los Spartans">
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--spartan-blue)';
+            });
+            h1.style.color = 'var(--spartan-blue)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--spartan-blue)';
+                });
+                h1.style.color = 'var(--spartan-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--spartan-blue)';
+                });
+                h1.style.color = 'var(--spartan-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>

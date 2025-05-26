@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Brutes - HaloMania</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --brute-blue: #0066cc;
+          --oni-purple: #663399;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--brute-blue);
+            border-bottom: 3px solid var(--oni-purple);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+            color: var(--brute-blue);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--brute-blue);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--brute-blue);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .brute-type {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .brute-type:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--brute-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--oni-purple);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        
+        body.light-mode .timeline-content {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Los Brutes - La raza guerrera</h1>
+
+        <h2>Orígenes de los Brutes</h2>
+        <p>Los Brutes, conocidos como Jiralhanae, son una especie guerrera que forma parte del Covenant. Son conocidos por su fuerza bruta y su ferocidad en combate, así como por su papel en la caída del Covenant.</p>
+        
+        <img src="img/origenbrute.jpg" alt="Orígenes de los Brutes">
+        
+        <p>Los Brutes fueron inicialmente utilizados como soldados de choque en el Covenant, pero con el tiempo, se convirtieron en una de las razas dominantes dentro de la alianza.</p>
+
+        <h2>Tipos de Brutes</h2>
+        
+        <div class="brute-type">
+            <h3>Brutes Guerreros</h3>
+            <p>Los Guerreros Brutes son la clase de combate más común, conocidos por su fuerza y resistencia. Son los soldados de élite del Covenant y son temidos en el campo de batalla.</p>
+            <img src="img/bruteg.jpg" alt="Guerrero Brute" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Fuerza física y habilidades de combate excepcionales</li>
+                <li><strong>Armadura:</strong> Armaduras pesadas y escudos energéticos</li>
+                <li><strong>Éxitos notables:</strong> Participación en numerosas batallas contra la humanidad</li>
+            </ul>
+        </div>
+        
+        <div class="brute-type">
+            <h3>Brutes Comandantes</h3>
+            <p>Los Comandantes Brutes son líderes en el campo de batalla, responsables de dirigir a sus tropas y tomar decisiones estratégicas durante las confrontaciones.</p>
+            <img src="img/brutessc.jpg" alt="Comandante Brute" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Pocos</li>
+                <li><strong>Mejoras:</strong> Estrategia militar y liderazgo</li>
+                <li><strong>Armadura:</strong> Armaduras de comando avanzadas</li>
+                <li><strong>Influencia:</strong> Controlan las decisiones tácticas en combate</li>
+            </ul>
+        </div>
+        
+        <div class="brute-type">
+            <h3>Brutes de Asalto</h3>
+            <p>Los Brutes de Asalto son especialistas en ataques rápidos y sorpresivos, utilizando su velocidad y fuerza para desestabilizar al enemigo.</p>
+            <img src="img/brutesa.jpg" alt="Brute de Asalto" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Agilidad y técnicas de combate cuerpo a cuerpo</li>
+                <li><strong>Armadura:</strong> Armaduras ligeras para mayor movilidad</li>
+                <li><strong>Tácticas:</strong> Ataques rápidos y emboscadas</li>
+            </ul>
+        </div>
+        
+        <div class="brute-type">
+            <h3>Brutes de Ceremonia</h3>
+            <p>Los Brutes de Ceremonia son responsables de las tradiciones y rituales de su especie, actuando como guardianes de la cultura Brute.</p>
+            <img src="img/brutesce.jpg" alt="Brute de Ceremonia" class="character-img">
+            <ul>
+                <li><strong>Número estimado:</strong> Pocos</li>
+                <li><strong>Mejoras:</strong> Conocimiento cultural y ceremonial</li>
+                <li><strong>Armadura:</strong> Armaduras ceremoniales</li>
+                <li><strong>Rol:</strong> Mantener las tradiciones de los Brutes</li>
+            </ul>
+        </div>
+
+        <h2>Comparación de Clases Brute</h2>
+        <table>
+            <tr>
+                <th>Clase</th>
+                <th>Rol</th>
+                <th>Número</th>
+                <th>Selección</th>
+                <th>Mejoras</th>
+                <th>Tasa de éxito</th>
+            </tr>
+            <tr>
+                <td>Guerreros</td>
+                <td>Soldados de élite</td>
+                <td>Desconocido</td>
+                <td>Seleccionados por fuerza</td>
+                <td>Extensivas</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>Comandantes</td>
+                <td>Líderes en combate</td>
+                <td>Pocos</td>
+                <td>Seleccionados por habilidad</td>
+                <td>Extensivas</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>De Asalto</td>
+                <td>Especialistas en ataques rápidos</td>
+                <td>Desconocido</td>
+                <td>Seleccionados por agilidad</td>
+                <td>Moderadas</td>
+                <td>Media</td>
+            </tr>
+            <tr>
+                <td>De Ceremonia</td>
+                <td>Guardianes de la cultura</td>
+                <td>Pocos</td>
+                <td>Seleccionados por conocimiento</td>
+                <td>Limitadas</td>
+                <td>Baja</td>
+            </tr>
+        </table>
+
+        <h2>Línea de Tiempo de los Brutes</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Antes de unirse al Covenant</h3>
+                    <p>Los Brutes establecen su cultura y comienzan a expandirse en su planeta natal.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Incorporación al Covenant</h3>
+                    <p>Los Brutes se unen al Covenant y comienzan a servir como soldados de choque.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Guerra contra la humanidad</h3>
+                    <p>Los Brutes participan activamente en la guerra contra la humanidad, demostrando su ferocidad.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Caída del Covenant</h3>
+                    <p>Los Brutes se convierten en la fuerza dominante tras la caída del Covenant.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Impacto de los Brutes</h2>
+        <p>Los Brutes han tenido un profundo impacto en el universo de Halo:</p>
+        <ul style="text-align: left;">
+            <li><strong>Militar:</strong> Su fuerza y tácticas cambiaron el curso de la guerra contra la humanidad.</li>
+            <li><strong>Tecnológico:</strong> Su uso de armamento pesado ha influido en la tecnología militar.</li>
+            <li><strong>Social:</strong> Su cultura guerrera ha impactado a otras especies en la galaxia.</li>
+            <li><strong>Ético:</strong> Sus métodos de combate han generado debates sobre la moralidad en la guerra.</li>
+            <li><strong>Cultural:</strong> Su legado ha inspirado a generaciones futuras en la lucha por la supervivencia.</li>
+        </ul>
+        
+        <p>Aunque son conocidos por su brutalidad, los Brutes también tienen una rica cultura y tradiciones que los definen.</p>
+        
+        <img src="img/legadobrute.jpg" alt="Legado de los Brutes">
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--brute-blue)';
+            });
+            h1.style.color = 'var(--brute-blue)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--brute-blue)';
+                });
+                h1.style.color = 'var(--brute-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--brute-blue)';
+                });
+                h1.style.color = 'var(--brute-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>

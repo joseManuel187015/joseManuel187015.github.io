@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>El Flood - HaloMania </title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --flood-green: #4caf50;
+          --oni-purple: #663399;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--flood-green);
+            border-bottom: 3px solid var(--oni-purple);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+            color: var(--flood-green);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--flood-green);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--flood-green);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .flood-type {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .flood-type:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--flood-green);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--oni-purple);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        
+        body.light-mode .timeline-content {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>El Flood - El parasito de Halo</h1>
+
+        <h2>Orígenes del Flood</h2>
+        <p>El Flood es una forma de vida parasitaria que representa una de las mayores amenazas en el universo de Halo. Su objetivo es infectar y consumir a otras especies, convirtiéndolas en parte de su horda.</p>
+        
+        <img src="img/origenflood.jpg" alt="Orígenes del Flood">
+        
+        <p>El Flood fue descubierto por primera vez por los Forerunners, quienes intentaron contenerlo, pero su naturaleza invasiva y adaptativa lo convirtió en un enemigo formidable.</p>
+
+        <h2>Tipos de Flood</h2>
+        
+        <div class="flood-type">
+            <h3>Infectados</h3>
+            <p>Los Infectados son las víctimas del Flood que han sido convertidas en formas de vida controladas por el parásito. Suelen ser humanos o especies alienígenas que han sido infectadas.</p>
+            <img src="img/infectado.png" alt="Infectado" class="character-img" />
+            <ul>
+                <li><strong>Número estimado:</strong> Miles</li>
+                <li><strong>Mejoras:</strong> Fuerza y resistencia aumentadas</li>
+                <li><strong>Rol:</strong> Soldados del Flood, atacan en masa</li>
+                <li><strong>Éxitos notables:</strong> Participación en la guerra contra los Forerunners y la humanidad</li>
+            </ul>
+        </div>
+
+        <div class="flood-type">
+            <h3>Formas Arácnidas</h3>
+            <p>Estas formas del Flood se caracterizan por su apariencia similar a arañas, utilizando rapidez y múltiples extremidades para atacar e infectar a sus presas.</p>
+            <img src="img/feral.jpg" alt="Formas Arácnidas del Flood" class="character-img" />
+            <ul>
+                <li><strong>Número estimado:</strong> Desconocido</li>
+                <li><strong>Mejoras:</strong> Agilidad y capacidad táctica</li>
+                <li><strong>Rol:</strong> Ataques rápidos y desmembramientos</li>
+                <li><strong>Influencia:</strong> Aumentan la letalidad de la horda</li>
+            </ul>
+        </div>
+        
+        <div class="flood-type">
+            <h3>El Gravemind</h3>
+            <p>El Gravemind es la forma central del Flood, actuando como una inteligencia colectiva que controla a todas las formas del Flood. Es extremadamente inteligente y manipulador.</p>
+            <img src="img/gravemind.jpg" alt="Gravemind" class="character-img" />
+            <ul>
+                <li><strong>Número estimado:</strong> 1 (único)</li>
+                <li><strong>Mejoras:</strong> Conocimiento de todas las formas del Flood</li>
+                <li><strong>Rol:</strong> Controlador y estratega del Flood</li>
+                <li><strong>Influencia:</strong> Manipula a sus enemigos y controla la horda</li>
+            </ul>
+        </div>
+
+        <h2>Comparación de Tipos de Flood</h2>
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th>Rol</th>
+                <th>Número</th>
+                <th>Mejoras</th>
+                <th>Éxitos notables</th>
+            </tr>
+            <tr>
+                <td>Infectados</td>
+                <td>Soldados del Flood</td>
+                <td>Miles</td>
+                <td>Fuerza aumentada</td>
+                <td>Participación en la guerra contra los Forerunners</td>
+            </tr>
+            <tr>
+                <td>Formas Arácnidas</td>
+                <td>Ataques rápidos</td>
+                <td>Desconocido</td>
+                <td>Agilidad y letalidad</td>
+                <td>Aumento de la eficacia en combate</td>
+            </tr>
+            <tr>
+                <td>Gravemind</td>
+                <td>Controlador del Flood</td>
+                <td>1 (único)</td>
+                <td>Conocimiento extenso</td>
+                <td>Manipulación de enemigos</td>
+            </tr>
+        </table>
+
+        <h2>Línea de Tiempo del Flood</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Descubrimiento del Flood</h3>
+                    <p>Los Forerunners descubren el Flood y su capacidad de infección.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Guerra contra los Forerunners</h3>
+                    <p>El Flood se convierte en una amenaza significativa para los Forerunners.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>Infección de la humanidad</h3>
+                    <p>El Flood comienza a infectar a los humanos durante la guerra contra el Covenant.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Contención del Flood</h3>
+                    <p>Se implementan medidas para contener al Flood y evitar su expansión.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Impacto del Flood</h2>
+        <p>El Flood ha tenido un profundo impacto en el universo de Halo:</p>
+        <ul style="text-align: left;">
+            <li><strong>Militar:</strong> Su presencia ha cambiado el curso de la guerra en la galaxia.</li>
+            <li><strong>Tecnológico:</strong> Ha llevado a desarrollos en tecnología de contención y defensa.</li>
+            <li><strong>Social:</strong> Ha generado miedo y desesperación entre las especies afectadas.</li>
+            <li><strong>Ético:</strong> Su naturaleza parasitaria plantea preguntas sobre la moralidad de la guerra.</li>
+            <li><strong>Cultural:</strong> Ha inspirado historias de horror y supervivencia en el universo de Halo.</li>
+        </ul>
+        
+        <p>Aunque el Flood es una amenaza aterradora, también ha llevado a la unión de fuerzas en la lucha por la supervivencia.</p>
+        
+        <img src="img/legadoflood.jpg" alt="Legado del Flood" />
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(el => {
+                el.style.backgroundColor = '#e0e0e0';
+                el.style.color = 'var(--flood-green)';
+            });
+            h1.style.color = 'var(--flood-green)';
+            h2.forEach(el => el.style.color = '#1a73e8');
+            h3.forEach(el => el.style.color = '#0288d1');
+            toggle.checked = true;
+        }
+
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(el => {
+                    el.style.backgroundColor = '#e0e0e0';
+                    el.style.color = 'var(--flood-green)';
+                });
+                h1.style.color = 'var(--flood-green)';
+                h2.forEach(el => el.style.color = '#1a73e8');
+                h3.forEach(el => el.style.color = '#0288d1');
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(el => {
+                    el.style.backgroundColor = '#444';
+                    el.style.color = 'var(--flood-green)';
+                });
+                h1.style.color = 'var(--flood-green)';
+                h2.forEach(el => el.style.color = '#ffcc00');
+                h3.forEach(el => el.style.color = '#4fc3f7');
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
+
