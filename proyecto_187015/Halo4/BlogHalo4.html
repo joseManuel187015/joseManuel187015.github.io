@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo 4: El Regreso del Jefe Maestro</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --forerunner-blue: #00b4d8;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--forerunner-blue);
+            border-bottom: 3px solid #ffcc00;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: var(--forerunner-blue);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--forerunner-blue);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--forerunner-blue);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: var(--forerunner-blue);
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+        
+        .promethean {
+            color: #f72585;
+            font-weight: bold;
+        }
+        
+        .factions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .faction {
+            width: 45%;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        body.light-mode .faction {
+            background: #e0e0e0;
+        }
+        
+        .terminal {
+            background-color: #1a237e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        body.light-mode .terminal {
+            background-color: #bbdefb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo 4: El Regreso del Jefe Maestro</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo 4 (2012) marca el inicio de la nueva trilogía "Reclaimer" y el regreso del Jefe Maestro después de 4 años en animación suspendida. Desarrollado por 343 Industries, el juego presenta gráficos revolucionarios, una narrativa más personal centrada en la relación entre el Jefe y Cortana, y la introducción de los enemigos Prometheans y el planeta Requiem.</p>
+        
+        <p>La historia comienza cuando el Jefe Maestro despierta a bordo del UNSC Infinity para enfrentar una nueva amenaza: el Didacta, un antiguo guerrero Forerunner que busca destruir a la humanidad.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Dawn</h3>
+            <p>El Jefe Maestro despierta en la nave Forward Unto Dawn, que ha estado a la deriva desde los eventos de Halo 3. Debe defender la nave de los Covenant y descubrir el misterioso planeta Requiem.</p>
+            <img src="img/mision1.jpg" alt="Misión Dawn">
+        </div>
+        
+        <div class="mission">
+            <h3>Requiem</h3>
+            <p>El Jefe aterriza en Requiem y descubre que los Covenant han liberado al Didacta de su prisión. Primera aparición de los Prometheans y sus armas tecnológicas.</p>
+            <img src="img/mision2.jpg" alt="Misión Requiem">
+        </div>
+        
+        <div class="mission">
+            <h3>Forerunner</h3>
+            <p>El Jefe explora las instalaciones Forerunner para encontrar una forma de detener al Didacta. Introducción de los Knights Prometheans y sus habilidades de teletransporte.</p>
+            <img src="img/mision3.jpg"Misión Forerunner">
+        </div>
+        
+        <div class="mission">
+            <h3>Infinity</h3>
+            <p>El UNSC Infinity llega a Requiem y es atacado. El Jefe debe defender la nave mientras Cortana muestra los primeros signos de inestabilidad por ser una IA "rampante".</p>
+            <img src="img/mision4.jpg" alt="Misión Infinity">
+        </div>
+        
+        <div class="mission">
+            <h3>Reclaimer</h3>
+            <p>El Jefe activa un artefacto Forerunner que revela el plan del Didacta: usar el Compositor para digitalizar a la humanidad. Combates épicos con el nuevo vehículo Mantis.</p>
+            <img src="img/mision5.jpg" alt="Misión Reclaimer">
+        </div>
+        
+        <div class="mission">
+            <h3>Shutdown</h3>
+            <p>El Jefe y Cortana se infiltran en una instalación Forerunner para desactivar el escudo del Didacta. Cortana se sacrifica temporalmente para ayudar al Jefe.</p>
+            <img src="img/mision6.jpg" alt="Misión Shutdown">
+        </div>
+        
+        <div class="mission">
+            <h3>Composer</h3>
+            <p>El Jefe persigue al Didacta hasta la estación Ivanoff para evitar que use el Compositor en la Tierra. Cortana muestra un comportamiento cada vez más errático.</p>
+            <img src="img/mision7.jpg" alt="Misión Composer">
+        </div>
+        
+        <div class="mission">
+            <h3>Midnight</h3>
+            <p>La misión final donde el Jefe aborda la nave del Didacta para detenerlo definitivamente. Cortana hace el máximo sacrificio para salvar al Jefe y a la humanidad.</p>
+            <img src="img/mision8.png" alt="Misión Midnight">
+        </div>
+
+        <h2>Personajes Clave</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rol</th>
+                <th>Importancia</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>Jefe Maestro (John-117)</td>
+                <td>Protagonista</td>
+                <td>Despierta después de 4 años para enfrentar una nueva amenaza</td>
+                <td><img class="character-img" src="img/jefe.png" alt="Jefe Maestro"></td>
+            </tr>
+            <tr>
+                <td>Cortana</td>
+                <td>IA</td>
+                <td>En las etapas finales de su vida como IA, mostrando inestabilidad</td>
+                <td><img class="character-img" src="img/cortana.png" alt="Cortana"></td>
+            </tr>
+            <tr>
+                <td>El Didacta</td>
+                <td>Antagonista</td>
+                <td>Antiguo guerrero Forerunner que busca destruir a la humanidad</td>
+                <td><img class="character-img" src="img/didacta.png" alt="Didacta"></td>
+            </tr>
+            <tr>
+                <td>Capitán Del Rio</td>
+                <td>UNSC Infinity</td>
+                <td>Comandante del UNSC Infinity que duda del Jefe Maestro</td>
+                <td><img class="character-img" src="img/capitanrio.png" alt="Capitán Del Rio"></td>
+            </tr>
+            <tr>
+                <td>Thomas Lasky</td>
+                <td>Oficial del UNSC</td>
+                <td>Antiguo cadete de Forward Unto Dawn que ahora sirve en el Infinity</td>
+                <td><img class="character-img" src="img/thomas.png" alt="Thomas Lasky"></td>
+            </tr>
+            <tr>
+                <td>Librarian</td>
+                <td>Forerunner</td>
+                <td>Entidad Forerunner que ayuda al Jefe Maestro en Requiem</td>
+                <td><img class="character-img" src="img/librarian.png" alt="Librarian"></td>
+            </tr>
+        </table>
+
+        <h2>Nuevas Armas, Vehículos y Enemigos</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Rifle de Luz <span class="promethean">(Promethean)</span></h3>
+                <p>Rifle de energía preciso que puede cargarse para disparos más potentes.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Disipador <span class="promethean">(Promethean)</span></h3>
+                <p>Arma que dispara proyectiles de energía que ralentizan y dañan a los enemigos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Pistola de Boltshot <span class="promethean">(Promethean)</span></h3>
+                <p>Pistola que puede cargarse para un potente disparo a corta distancia.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Mantis</h3>
+                <p>Mech humanoide armado con cañones automáticos y misiles.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Knights Prometheans</h3>
+                <p>Enemigos élite que pueden teletransportarse y convocar armas.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Crawlers</h3>
+                <p>Enemigos caninos que atacan en manadas y pueden escalar paredes.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Watchers</h3>
+                <p>Unidades de apoyo que reviven Knights y desvían granadas.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Scattershot <span class="promethean">(Promethean)</span></h3>
+                <p>Escopeta de energía con proyectiles que rebotan en superficies.</p>
+            </div>
+        </div>
+
+        <h2>Facciones</h2>
+        <div class="factions">
+            <div class="faction">
+                <h3>UNSC</h3>
+                <p>Fuerzas humanas lideradas por el UNSC Infinity. Incluye nuevos soldados y vehículos.</p>
+                <p><strong>Unidades:</strong> Marines, Spartan-IVs, Mantis</p>
+            </div>
+            <div class="faction">
+                <h3>Covenant Remanente</h3>
+                <p>Facción separatista Covenant que adora a los Forerunners.</p>
+                <p><strong>Unidades:</strong> Elites, Grunts, Jackals, Hunters</p>
+            </div>
+            <div class="faction">
+                <h3>Prometheans</h3>
+                <p>Constructos de guerra Forerunner activados por el Didacta.</p>
+                <p><strong>Unidades:</strong> Knights, Crawlers, Watchers</p>
+            </div>
+            <div class="faction">
+                <h3>Forerunners</h3>
+                <p>Antigua raza que construyó los anillos Halo. Algunos ayudan, otros amenazan.</p>
+                <p><strong>Personajes:</strong> Didacta, Librarian</p>
+            </div>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Sistema de Calaveras en Halo 4</h3>
+            <p>A diferencia de juegos anteriores, en Halo 4 todas las calaveras están desbloqueadas desde el principio. No es necesario encontrarlas en los niveles, solo activarlas desde el menú de opciones antes de comenzar una misión.</p>
+            
+            <h3>Efectos de las Calaveras Disponibles</h3>
+            <ul style="text-align: left;">
+                <li><strong>Iron:</strong> Reinicio de nivel al morir (sin checkpoints)</li>
+                <li><strong>Black Eye:</strong> Escudos solo se recargan con daño cuerpo a cuerpo</li>
+                <li><strong>Tough Luck:</strong> Enemigos esquivan ataques y nunca se rinden</li>
+                <li><strong>Catch:</strong> Enemigos lanzan más granadas</li>
+                <li><strong>Fog:</strong> Desactiva el sensor de movimiento</li>
+                <li><strong>Famine:</strong> Las armas contienen la mitad de munición</li>
+                <li><strong>Thunderstorm:</strong> Enemigos aparecen con rangos superiores</li>
+                <li><strong>Tilt:</strong> Los escudos enemigos son más resistentes</li>
+                <li><strong>Mythic:</strong> Enemigos tienen el doble de salud</li>
+                <li><strong>IWHBYD:</strong> Activa diálogos raros y divertidos</li>
+                <li><strong>Grunt Birthday Party:</strong> Grunts explotan en confeti con disparos en la cabeza</li>
+                <li><strong>Boom:</strong> Explosiones más grandes al morir</li>
+            </ul>
+            
+            <p>Para activar las calaveras en Halo 4:</p>
+            <ol style="text-align: left;">
+                <li>Selecciona "Campaña" en el menú principal</li>
+                <li>Elige "Opciones de misión" antes de comenzar</li>
+                <li>Selecciona las calaveras que deseas activar</li>
+                <li>Comienza la misión con los modificadores activos</li>
+            </ol>
+            
+            <p>Las calaveras no afectan los logros en Halo 4, pero pueden hacer el juego significativamente más desafiante o divertido según la combinación utilizada.</p>
+        </div>
+
+        <h2>Legado de Halo 4</h2>
+        <p>Halo 4 marcó el inicio de una nueva era para la franquicia con:</p>
+        <ul style="text-align: left;">
+            <li><strong>Nuevo motor gráfico:</strong> Gráficos significativamente mejorados</li>
+            <li><strong>Narrativa emocional:</strong> Enfoque en la relación Jefe-Cortana</li>
+            <li><strong>Spartan Ops:</strong> Misiones cooperativas episódicas que expanden la historia</li>
+            <li><strong>Multijugador mejorado:</strong> Sistema de progreso y personalización</li>
+            <li><strong>Armas Promethean:</strong> Nuevo arsenal con tecnología Forerunner</li>
+            <li><strong>Forerunners:</strong> Primera aparición física de esta antigua raza</li>
+        </ul>
+        
+        <p>El juego vendió más de 9 millones de copias y recibió elogios por su narrativa y presentación visual, aunque algunos criticaron los cambios en el multijugador.</p>
+        
+        <img src="img/halo4final.jpg" alt="Legado de Halo 4">
+        
+        <h2>El Sacrificio de Cortana</h2>
+        <p>El momento más emotivo de Halo 4 ocurre al final, cuando Cortana se sacrifica para salvar al Jefe Maestro. Este evento:</p>
+        <ul style="text-align: left;">
+            <li>Marca el final de la IA tras 8 años de servicio (7 para ella por relatividad)</li>
+            <li>Muestra el lado más humano del Jefe Maestro al perder a su compañera</li>
+            <li>Establece los eventos para Halo 5 con fragmentos de Cortana sobreviviendo</li>
+            <li>Representa el clímax de su deterioro por el "rampancy" de las IAs</li>
+        </ul>
+        <p>Esta escena se considera una de las más memorables de toda la saga Halo.</p>
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const factions = document.querySelectorAll('.faction');
+        const terminal = document.querySelector('.terminal');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--forerunner-blue)';
+            });
+            h1.style.color = 'var(--forerunner-blue)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            factions.forEach(faction => {
+                faction.style.backgroundColor = '#e0e0e0';
+            });
+            terminal.style.backgroundColor = '#bbdefb';
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--forerunner-blue)';
+                });
+                h1.style.color = 'var(--forerunner-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#e0e0e0';
+                });
+                terminal.style.backgroundColor = '#bbdefb';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--forerunner-blue)';
+                });
+                h1.style.color = 'var(--forerunner-blue)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#333';
+                });
+                terminal.style.backgroundColor = '#1a237e';
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
