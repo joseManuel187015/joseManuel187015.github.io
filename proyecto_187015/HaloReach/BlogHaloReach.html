@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo Reach - HaloMania</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: #1e90ff;
+            border-bottom: 3px solid #ffcc00;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: #ffcc00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles - Fixed centering */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: #1a73e8;
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: #ff5252;
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo Reach: La Caída de un Mundo</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo Reach narra los eventos que llevaron a la caída del planeta Reach, el segundo mundo más importante de la humanidad y principal centro de operaciones militares. La historia sigue al Equipo Noble, un grupo de Spartans de élite, durante los últimos días de la batalla contra el Covenant en el año 2552.</p>
+        
+        <p>Reach era el corazón de las operaciones del UNSC, hogar de la Oficina de Inteligencia Naval (ONI) y el lugar donde se entrenaban los Spartans. Su caída marcó uno de los momentos más oscuros en la guerra humano-Covenant, pero también el comienzo de los eventos que llevarían al descubrimiento de los anillos Halo.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Invernadero</h3>
+            <p>El Equipo Noble es enviado a investigar una perturbación en las comunicaciones en la colonia de Visegrád. Lo que comienza como una misión rutinaria se convierte en el primer contacto con las fuerzas Covenant que han llegado en secreto a Reach. Los Spartans descubren que el Covenant ha estado en el planeta más tiempo del que nadie sospechaba.</p>
+            <img src="img/MisionInvierno.jpg" alt="Misión Invernadero">
+        </div>
+        
+        <div class="mission">
+            <h3>Base de la Espada</h3>
+            <p>El equipo debe proteger la base aérea de Sabre para asegurar las defensas orbitales de Reach. Participan en intensos combates aéreos contra las fuerzas Covenant utilizando los avanzados cazas Sabre. Esta misión es crucial para mantener la superioridad aérea y proteger la flota del UNSC en órbita.</p>
+            <img src="img/MisionEspada.jpg" alt="Misión Base de la Espada">
+        </div>
+        
+        <div class="mission">
+            <h3>Operación: UPPERCUT</h3>
+            <p>Noble Team se infiltra en una instalación Covenant para destruir una corbeta enemiga que amenaza las defensas planetarias. Utilizan un cañón de masa improvisado para lanzar una bomba hacia la nave. Jorge sacrifica su vida para asegurar el éxito de la misión, demostrando el compromiso de los Spartans con la protección de la humanidad.</p>
+            <img src="img/MisionUppercut.jpg" alt="Misión UPPERCUT">
+        </div>
+        
+        <div class="mission">
+            <h3>El Pilar del Otoño</h3>
+            <p>La misión final donde Noble Six ayuda al Capitán Keyes a escapar con el Pilar del Otoño, llevando consigo a Cortana y las coordenadas del anillo Halo. Mientras Reach cae, esta nave logra escapar, iniciando los eventos del primer Halo: Combat Evolved. Six permanece en la superficie para asegurar el despegue, convirtiéndose en el último Spartan en caer.</p>
+            <img src="img/MisionOtoño.jpg" alt="Misión Pilar del Otoño">
+        </div>
+
+        <h2>Personajes del Equipo Noble</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rango</th>
+                <th>Especialidad</th>
+                <th>Historia</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>Noble Six</td>
+                <td>SPARTAN-B312</td>
+                <td>Operaciones especiales</td>
+                <td>Un Spartan-III con un expediente clasificado, conocido como "asesino de mano vacía". Es el protagonista controlado por el jugador.</td>
+                <td><img class="character-img" src="img/noblesix.png" alt="Noble Six"></td>
+            </tr>
+            <tr>
+                <td>Carter-A259</td>
+                <td>Comandante</td>
+                <td>Liderazgo táctico</td>
+                <td>Líder del Equipo Noble, Spartan-II como Jorge. Serio y comprometido, sacrifica su vida estrellando su pelican contra un crucero Covenant.</td>
+                <td><img class="character-img" src="img/carter.png" alt="Carter"></td>
+            </tr>
+            <tr>
+                <td>Kat-B320</td>
+                <td>Teniente</td>
+                <td>Tecnología e inteligencia</td>
+                <td>Experta en tecnología y hacking. Pierde su brazo izquierdo antes de los eventos del juego. Muere por un disparo de francotirador.</td>
+                <td><img class="character-img" src="img/cat.png" alt="Kat"></td>
+            </tr>
+            <tr>
+                <td>Jorge-052</td>
+                <td>Sargento</td>
+                <td>Armas pesadas</td>
+                <td>El único Spartan-II en el equipo. De gran tamaño y corazón. Se sacrifica para destruir una corbeta Covenant.</td>
+                <td><img class="character-img" src="img/jorge.png" alt="Jorge"></td>
+            </tr>
+            <tr>
+                <td>Emile-A239</td>
+                <td>Especialista</td>
+                <td>Combate cercano</td>
+                <td>Agresivo y experto en combate cuerpo a cuerpo. Muere defendendo el cañón MAC durante la evacuación del Pilar del Otoño.</td>
+                <td><img class="character-img" src="img/emile.png" alt="Emile"></td>
+            </tr>
+            <tr>
+                <td>Jun-A266</td>
+                <td>Francotirador</td>
+                <td>Tirador de precisión</td>
+                <td>El único miembro del equipo que sobrevive, asignado a proteger a la Dra. Halsey durante la evacuación.</td>
+                <td><img class="character-img" src="img/jun.png" alt="Jun"></td>
+            </tr>
+        </table>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>¿Qué son las Calaveras en Halo Reach?</h3>
+            <p>Las Calaveras son objetos coleccionables ocultos en el juego que modifican la jugabilidad cuando se activan. Cada calavera ofrece un efecto único que puede hacer el juego más desafiante o divertido.</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <p>Algunas de las calaveras más notables incluyen:</p>
+            <ul style="text-align: left;">
+                <li><strong>Boom:</strong> Los enemigos explotan al morir</li>
+                <li><strong>Grunt Birthday Party:</strong> Los Grunts explotan en confeti cuando mueren con disparos en la cabeza</li>
+                <li><strong>Mythic:</strong> Los enemigos tienen el doble de salud</li>
+                <li><strong>IWHBYD:</strong> Desbloquea diálogos raros y divertidos</li>
+                <li><strong>Famine:</strong> Las armas contienen la mitad de munición</li>
+            </ul>
+            
+            <p>Encontrar todas las calaveras es un desafío que requiere explorar meticulosamente cada nivel. Algunas están escondidas en lugares casi inaccesibles.</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/x1rHOvkZvOw?si=GPAuMoV-ROy7BCeU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Las calaveras no solo añaden replay value al juego, sino que también permiten personalizar la experiencia de juego para mayor desafío o diversión.</p>
+        </div>
+
+        <h2>Legado de Reach</h2>
+        <p>La batalla de Reach marcó un punto de inflexión en la guerra contra el Covenant. Aunque el planeta cayó, los sacrificios del Equipo Noble permitieron que el Pilar del Otoño escapara con información crucial que cambiaría el curso de la guerra, llevando directamente a los eventos del primer Halo.</p>
+        
+        <p>El sacrificio de los Spartans en Reach se convirtió en un símbolo de la resistencia humana. La historia del Equipo Noble, especialmente la última resistencia de Noble Six, ha inspirado a generaciones de soldados del UNSC. La caída de Reach también demostró la vulnerabilidad de la humanidad y la necesidad de medidas desesperadas, lo que llevaría posteriormente al programa Spartan-IV.</p>
+        
+        <img src="img/final.jpg" alt="Legado de Reach">
+        
+        <h2>Armas y Vehículos</h2>
+        <p>Halo Reach introdujo varias armas y vehículos nuevos a la franquicia:</p>
+        <ul style="text-align: left;">
+            <li><strong>DMR:</strong> Rifle de tirador designado, perfecto para combate a media distancia</li>
+            <li><strong>Needle Rifle:</strong> Arma Covenant que puede causar supercombine</li>
+            <li><strong>Grenade Launcher:</strong> Lanzagranadas proppelente</li>
+            <li><strong>Sabre:</strong> Caza espacial de superioridad aérea</li>
+            <li><strong>Falcon:</strong> Helicóptero de transporte con capacidad de fuego</li>
+        </ul>
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = '#1a73e8';
+            });
+            h1.style.color = '#1a73e8';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = '#1a73e8';
+                });
+                h1.style.color = '#1a73e8';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = '#ffcc00';
+                });
+                h1.style.color = '#1e90ff';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
