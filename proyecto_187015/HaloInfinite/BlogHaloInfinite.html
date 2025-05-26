@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo Infinite - El Renacimiento de una Leyenda</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+          --infinite-green: #00cc66;
+          --banished-red: #cc3333;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: var(--infinite-green);
+            border-bottom: 3px solid var(--banished-red);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: var(--infinite-green);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: var(--infinite-green);
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: var(--infinite-green);
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: var(--banished-red);
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+        
+        .equipment {
+            color: var(--infinite-green);
+            font-weight: bold;
+        }
+        
+        .factions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .faction {
+            width: 45%;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .unsc-faction {
+            border-top: 3px solid var(--infinite-green);
+        }
+        
+        .banished-faction {
+            border-top: 3px solid var(--banished-red);
+        }
+        
+        body.light-mode .faction {
+            background: #e0e0e0;
+        }
+        
+        .open-world {
+            background-color: #2e2e2e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 5px solid var(--infinite-green);
+        }
+        
+        body.light-mode .open-world {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo Infinite - El Renacimiento de una Leyenda</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo Infinite (2021) marca el regreso del Jefe Maestro en una aventura que combina lo mejor de los Halo clásicos con innovaciones modernas. Ambientado en el Anillo Zeta Halo, el juego presenta por primera vez un mundo abierto explorable, manteniendo la esencia de la saga. Tras la derrota del UNSC por los Banished, el Jefe debe reunir fuerzas para rescatar a los humanos capturados y descubrir los secretos del anillo.</p>
+        
+        <p>Con un nuevo motor gráfico (Slipspace Engine), mecánicas de combate refinadas y un enfoque en la exploración, Halo Infinite busca honrar el legado de la saga mientras avanza hacia el futuro.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Warship Gbraakon</h3>
+            <p>El Jefe Maestro se infiltra en una nave Banished para rescatar al piloto Echo-216. Esta misión introductoria muestra las nuevas mecánicas de combate y el devastador poder de los Banished.</p>
+            <img src="img/mision1.jpg" alt="Warship Gbraakon">
+        </div>
+        
+        <div class="mission">
+            <h3>Foundation</h3>
+            <p>Tras estrellarse en Zeta Halo, el Jefe explora instalaciones Forerunner para encontrar una forma de restaurar el anillo y detener a los Banished.</p>
+            <img src="img/mision2.jpg" alt="Foundation">
+        </div>
+        
+        <div class="mission">
+            <h3>Outpost Tremonius</h3>
+            <p>Primera misión en mundo abierto donde el Jefe asalta un puesto Banished para establecer FOB Golf. Presenta el sistema de bases de operaciones.</p>
+            <img src="img/mision3.jpg" alt="Outpost Tremonius">
+        </div>
+        
+        <div class="mission">
+            <h3>The Tower</h3>
+            <p>El Jefe escala una torre Banished para desactivar sistemas de defensa y rescatar prisioneros del UNSC. Muestra el diseño vertical del mundo.</p>
+            <img src="img/mision4.jpg" alt="The Tower">
+        </div>
+        
+        <div class="mission">
+            <h3>Excavation Site</h3>
+            <p>Investigación de una excavación Banished que revela secretos sobre Zeta Halo y su conexión con los eventos de Halo Wars 2.</p>
+            <img src="img/mision5.jpg" alt="Excavation Site">
+        </div>
+        
+        <div class="mission">
+            <h3>Conservatory</h3>
+            <p>Exploración de una instalación Forerunner que contiene información sobre el "Arma" que los Banished buscan activar.</p>
+            <img src="img/mision6.png" alt="Conservatory">
+        </div>
+        
+        <div class="mission">
+            <h3>Spire</h3>
+            <p>El Jefe activa una torre Forerunner para restaurar secciones del anillo, desbloqueando nuevas áreas explorables.</p>
+            <img src="img/mision7.jpg" alt="Spire">
+        </div>
+        
+        <div class="mission">
+            <h3>Pelican Down</h3>
+            <p>Rescate de un pelicano derribado que lleva información crucial sobre los planes del War Chief Escharum.</p>
+            <img src="img/mision8.jpg" alt="Pelican Down">
+        </div>
+        
+        <div class="mission">
+            <h3>The Sequence</h3>
+            <p>El Jefe y el Arma intentan detener la activación del "Arma" mientras descubren la verdad sobre Cortana en Zeta Halo.</p>
+            <img src="img/mision9.jpg" alt="The Sequence">
+        </div>
+        
+        <div class="mission">
+            <h3>House of Reckoning</h3>
+            <p>Asalto a la fortaleza de Escharum para enfrentar al War Chief en un combate épico que decide el destino de Zeta Halo.</p>
+            <img src="img/mision10.png" alt="House of Reckoning">
+        </div>
+
+        <h2>Personajes Clave</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rol</th>
+                <th>Importancia</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>Jefe Maestro (John-117)</td>
+                <td>Protagonista</td>
+                <td>Último Spartan-II en pie que lidera la resistencia contra los Banished</td>
+                <td><img class="character-img" src="img/jefe.png" alt="Jefe Maestro"></td>
+            </tr>
+            <tr>
+                <td>El Arma (The Weapon)</td>
+                <td>IA</td>
+                <td>Nueva IA creada para contener a Cortana, se convierte en compañera del Jefe</td>
+                <td><img class="character-img" src="img/arma.png" alt="El Arma"></td>
+            </tr>
+            <tr>
+                <td>Fernando Esparza</td>
+                <td>Piloto</td>
+                <td>Piloto del UNSC que ayuda al Jefe Maestro como su apoyo logístico</td>
+                <td><img class="character-img" src="img/fernando.png" alt="Esparza"></td>
+            </tr>
+            <tr>
+                <td>War Chief Escharum</td>
+                <td>Antagonista</td>
+                <td>Líder de los Banished en Zeta Halo y mentor de Atriox</td>
+                <td><img class="character-img" src="img/escharum.png" alt="Escharum"></td>
+            </tr>
+            <tr>
+                <td>Jega 'Rdomnai</td>
+                <td>Antagonista</td>
+                <td>Elite mercenario al servicio de Escharum, cazador de Spartans</td>
+                <td><img class="character-img" src="img/jega.png" alt="Jega"></td>
+            </tr>
+            <tr>
+                <td>Atriox</td>
+                <td>Antagonista</td>
+                <td>Líder de los Banished que aparece en escenas post-créditos</td>
+                <td><img class="character-img" src="img/atriox.png" alt="Atriox"></td>
+            </tr>
+        </table>
+
+        <h2>Nuevas Armas, Equipamiento y Vehículos</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Rifle de Asalto MA40</h3>
+                <p>Versión mejorada del rifle estándar con cargador más grande y menor retroceso.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Pistola Mangler <span class="equipment">(Banished)</span></h3>
+                <p>Revólver de proyectiles pesados que causa gran daño a corta distancia.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Disruptor <span class="equipment">(Banished)</span></h3>
+                <p>Pistola eléctrica que daña múltiples objetivos y desactiva vehículos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Carcaj <span class="equipment">(Equipamiento)</span></h3>
+                <p>Dispositivo que permite al Jefe usar el gancho para moverse rápidamente.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Pantalla de Amenaza <span class="equipment">(Equipamiento)</span></h3>
+                <p>Genera un campo que detiene proyectiles enemigos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Razorback</h3>
+                <p>Versión mejorada del Warthog con capacidad para más pasajeros y equipamiento.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Wasp</h3>
+                <p>Aeronave ligera con cañones automáticos y misiles.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Skewer <span class="equipment">(Banished)</span></h3>
+                <p>Lanzador de proyectiles masivos que atraviesa vehículos y enemigos.</p>
+            </div>
+        </div>
+
+        <h2>Facciones</h2>
+        <div class="factions">
+            <div class="faction unsc-faction">
+                <h3>UNSC</h3>
+                <p>Fuerzas humanas dispersas tras la derrota inicial. El Jefe Maestro debe reunirlas.</p>
+                <p><strong>Unidades:</strong> Marines, Spartan-IVs, Echo-216</p>
+            </div>
+            <div class="faction banished-faction">
+                <h3>Los Banished</h3>
+                <p>Facción Covenant rebelde que ahora controla Zeta Halo bajo Escharum.</p>
+                <p><strong>Unidades:</strong> Brutes, Elites, Grunts, Hunters</p>
+            </div>
+        </div>
+
+        <div class="open-world">
+            <h3>Mundo Abierto de Zeta Halo</h3>
+            <p>Halo Infinite introduce por primera vez un mundo abierto en la saga con:</p>
+            <ul>
+                <li>Exploración libre en secciones del anillo Halo</li>
+                <li>Misiones secundarias y objetivos opcionales</li>
+                <li>Sistema de Bases de Operaciones (FOBs) que se pueden capturar</li>
+                <li>Enemigos y patrullas dinámicas</li>
+                <li>Secretos y coleccionables ocultos</li>
+                <li>Torres de señal que revelan áreas del mapa</li>
+                <li>Misiones de rescate de Marines prisioneros</li>
+            </ul>
+            <p>El diseño combina la estructura clásica de Halo con la libertad de un sandbox moderno.</p>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Sistema de Calaveras en Halo Infinite</h3>
+            <p>Halo Infinite vuelve al sistema clásico donde las calaveras deben encontrarse en el mundo de juego para desbloquear sus efectos. Hay 12 calaveras ocultas en Zeta Halo, cada una con un modificador único.</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <ul style="text-align: left;">
+                <li><strong>Boom:</strong> Explosiones más grandes al morir</li>
+                <li><strong>Grunt Birthday Party:</strong> Grunts explotan en confeti con disparos en la cabeza</li>
+                <li><strong>IWHBYD:</strong> Activa diálogos raros y divertidos</li>
+                <li><strong>Blind:</strong> Oculta el HUD y la mira</li>
+                <li><strong>Black Eye:</strong> Escudos solo se recargan con daño cuerpo a cuerpo</li>
+                <li><strong>Catch:</strong> Enemigos lanzan más granadas</li>
+                <li><strong>Fog:</strong> Desactiva el sensor de movimiento</li>
+                <li><strong>Famine:</strong> Las armas contienen la mitad de munición</li>
+                <li><strong>Thunderstorm:</strong> Enemigos aparecen con rangos superiores</li>
+                <li><strong>Tilt:</strong> Los escudos enemigos son más resistentes</li>
+                <li><strong>Mythic:</strong> Enemigos tienen el doble de salud</li>
+                <li><strong>Bandana:</strong> Munición infinita y sin recarga (exclusiva de Infinite)</li>
+            </ul>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/5SRiSFKbbtM?si=dAllGO_44CHQY8Tk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Para encontrar calaveras en Halo Infinite:</p>
+            <ol style="text-align: left;">
+                <li>Explora áreas fuera del camino principal, especialmente en estructuras altas</li>
+                <li>Algunas requieren el uso del gancho para alcanzarlas</li>
+                <li>Emiten un sonido característico cuando estás cerca</li>
+                <li>Una vez encontradas, se pueden activar en el menú de campaña</li>
+                <li>La calavera Bandana solo aparece después de completar la campaña</li>
+            </ol>
+        </div>
+
+        <h2>Legado de Halo Infinite</h2>
+        <p>Halo Infinite representa un nuevo comienzo para la franquicia con:</p>
+        <ul style="text-align: left;">
+            <li><strong>Motor Slipspace:</strong> Gráficos modernos que mantienen el estilo clásico de Halo</li>
+            <li><strong>Mundo abierto:</strong> Primera incursión en diseño sandbox para la campaña</li>
+            <li><strong>Combate refinado:</strong> Mezcla de lo mejor de Halo clásico y moderno</li>
+            <li><strong>Multijugador free-to-play:</strong> Nuevo modelo de negocio para el componente online</li>
+            <li><strong>Historia íntima:</strong> Enfoque en el Jefe Maestro y su relación con el Arma</li>
+            <li><strong>Actualizaciones continuas:</strong> Modelo de juego como servicio con nuevo contenido</li>
+        </ul>
+        
+        <p>Aunque el lanzamiento tuvo algunos problemas técnicos, Infinite ha sido bien recibido por devolver a la franquicia a sus raíces mientras introduce innovaciones frescas.</p>
+        
+        <img src="img/haloinffinal.jpg" alt="Legado de Halo Infinite">
+        
+        <h2>El Futuro de la Saga</h2>
+        <p>Halo Infinite sienta las bases para el futuro de la franquicia:</p>
+        <ul style="text-align: left;">
+            <li>La aparición de Atriox en los créditos sugiere su regreso como principal antagonista</li>
+            <li>El destino de Cortana y la naturaleza del Arma dejan preguntas sin responder</li>
+            <li>El Anillo Zeta sigue siendo un misterio con muchos secretos por descubrir</li>
+            <li>Las actualizaciones estacionales continúan expandiendo la historia</li>
+            <li>El modelo de juego como servicio promete años de soporte y contenido</li>
+        </ul>
+        <p>Con su mezcla de nostalgia e innovación, Halo Infinite busca ser la plataforma para la saga durante la próxima década.</p>
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const factions = document.querySelectorAll('.faction');
+        const openWorld = document.querySelector('.open-world');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = 'var(--infinite-green)';
+            });
+            h1.style.color = 'var(--infinite-green)';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            factions.forEach(faction => {
+                faction.style.backgroundColor = '#e0e0e0';
+            });
+            openWorld.style.backgroundColor = '#f5f5f5';
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = 'var(--infinite-green)';
+                });
+                h1.style.color = 'var(--infinite-green)';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#e0e0e0';
+                });
+                openWorld.style.backgroundColor = '#f5f5f5';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = 'var(--infinite-green)';
+                });
+                h1.style.color = 'var(--infinite-green)';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#333';
+                });
+                openWorld.style.backgroundColor = '#2e2e2e';
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
