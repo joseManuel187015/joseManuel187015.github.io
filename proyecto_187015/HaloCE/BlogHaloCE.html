@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo: Combat Evolved - HaloMania</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: #1e90ff;
+            border-bottom: 3px solid #ffcc00;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: #ffcc00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles - Fixed centering */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: #1a73e8;
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: #ff5252;
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo: Combat Evolved - La Leyenda Comienza</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo: Combat Evolved (2001) es el juego que inició la legendaria saga. La historia comienza cuando la nave Pillar of Autumn, huyendo de Reach, descubre el misterioso anillo Halo. El Jefe Maestro (Master Chief) y Cortana deben descubrir los secretos de esta megaestructura mientras combaten al Covenant y a una amenaza aún mayor: el Flood.</p>
+        
+        <p>Este juego revolucionó los shooters en consolas con su gameplay innovador, combates vehiculares y una narrativa épica. Estableció los pilares de lo que sería una de las franquicias más importantes de Xbox.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Pilar del Otoño</h3>
+            <p>La misión inicial donde el Jefe Maestro despierta de la criosleep para defender la nave Pillar of Autumn del ataque Covenant. Los jugadores aprenden los controles básicos mientras repelen a los invasores en los estrechos pasillos de la nave.</p>
+            <img src="img/MisionAtum.jpeg" alt="Misión Pilar del Otoño">
+        </div>
+        
+        <div class="mission">
+            <h3>Halo</h3>
+            <p>Tras estrellarse en el anillo, el Jefe Maestro explora los misteriosos paisajes de Halo. Esta misión introduce los entornos abiertos y los vehículos como el Warthog, mostrando la escala épica del juego.</p>
+            <img src="img/MisionHalo.jpg" alt="Misión Halo">
+        </div>
+        
+        <div class="mission">
+            <h3>La Verdad y la Reconciliación</h3>
+            <p>Una misión de infiltración nocturna para rescatar a prisioneros humanos de una nave Covenant. Notable por su dificultad y por introducir a los temibles Elite Zealots con armadura dorada.</p>
+            <img src="img/MisionReconciliacion.jpg" alt="Misión Verdad y Reconciliación">
+        </div>
+        
+        <div class="mission">
+            <h3>Las Dos Torres</h3>
+            <p>El Jefe Maestro debe activar dos torres para abrir el camino a las instalaciones ocultas de Halo. Esta misión muestra el excelente diseño de niveles del juego, con combates intensos en estructuras elevadas.</p>
+            <img src="img/MisionLasdostorres.png" alt="Misión Dos Torres">
+        </div>
+        
+        <div class="mission">
+            <h3>La Biblioteca</h3>
+            <p>Una de las misiones más icónicas y desafiantes, donde el jugador se adentra en las profundidades de Halo para recuperar el Índice mientras es atacado por oleadas de Flood. Conocida por su diseño laberíntico y combates intensos.</p>
+            <img src="img/MisionBiblioteca.jpg" alt="Misión Biblioteca">
+        </div>
+
+        <h2>Personajes Principales</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rol</th>
+                <th>Importancia</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>Jefe Maestro (John-117)</td>
+                <td>Protagonista</td>
+                <td>Spartan-II que lidera la defensa contra el Covenant y descubre los secretos de Halo</td>
+                <td><img class="character-img" src="img/jefemaestro.png" alt="Jefe Maestro"></td>
+            </tr>
+            <tr>
+                <td>Cortana</td>
+                <td>IA</td>
+                <td>Inteligenia artificial que ayuda al Jefe Maestro y contiene información crucial sobre Halo</td>
+                <td><img class="character-img" src="img/cortana.png" alt="Cortana"></td>
+            </tr>
+            <tr>
+                <td>Capitán Keyes</td>
+                <td>Oficial del UNSC</td>
+                <td>Comandante del Pillar of Autumn, capturado por el Flood</td>
+                <td><img class="character-img" src="img/capitankeyes.png" alt="Capitán Keyes"></td>
+            </tr>
+            <tr>
+                <td>343 Guilty Spark</td>
+                <td>Monitor Forerunner</td>
+                <td>Entidad que supervisa Halo y activa sus protocolos de defensa</td>
+                <td><img class="character-img" src="img/guiltyspark.png" alt="Guilty Spark"></td>
+            </tr>
+            <tr>
+                <td>Sargento Johnson</td>
+                <td>Marine del UNSC</td>
+                <td>Líder carismático que ayuda en varias misiones</td>
+                <td><img class="character-img" src="img/johnson.png" alt="Sargento Johnson"></td>
+            </tr>
+        </table>
+
+        <h2>Armas y Vehículos</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Pistola Magnum M6D</h3>
+                <p>El arma más icónica del juego, con zoom 2x y gran potencia. Capaz de eliminar a la mayoría de enemigos con disparos en la cabeza.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Rifle de Asalto MA5B</h3>
+                <p>Arma estándar del UNSC con gran cadencia pero dispersión alta. Efectiva a media distancia.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Espada de Energía</h3>
+                <p>Arma cuerpo a cuerpo Covenant reservada para los Elite de alto rango. Letal en manos expertas.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Warthog</h3>
+                <p>Vehículo todoterreno con ametralladora o cañón. Requiere cooperación entre conductor, artillero y pasajero.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Banshee</h3>
+                <p>Caza Covenant que puede ser robado por el jugador. Ideal para ataques aéreos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Escorpion</h3>
+                <p>Tanque pesado del UNSC con gran poder destructivo. Aparece en misiones clave.</p>
+            </div>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Secretos Ocultos de Halo CE</h3>
+            <p>Las calaveras en Halo: Combat Evolved Anniversary (versión remasterizada) funcionan como modificadores de juego que alteran la experiencia:</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <ul style="text-align: left;">
+                <li><strong>Boom:</strong> Explosiones más grandes al morir</li>
+                <li><strong>Grunt Birthday Party:</strong> Los Grunts explotan en confeti con disparos en la cabeza</li>
+                <li><strong>Iron:</strong> Muerte permanente (no hay checkpoints)</li>
+                <li><strong>Black Eye:</strong> Los escudos solo se recargan al dañar enemigos en melee</li>
+                <li><strong>Fog:</strong> Desactiva el motion tracker</li>
+                <li><strong>Mythic:</strong> Enemigos con el doble de salud</li>
+            </ul>
+            
+            <p>Encontrar estas calaveras requiere exploración minuciosa de los niveles, algunas están escondidas en lugares casi inaccesibles.</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/-P4DIfWr9_4?si=PXim5cpjyTVmr48j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Las calaveras añaden replay value y desafíos adicionales para jugadores experimentados.</p>
+        </div>
+
+        <h2>Legado de Halo CE</h2>
+        <p>Halo: Combat Evolved no solo estableció los fundamentos de la saga, sino que revolucionó los shooters en consolas con:</p>
+        <ul style="text-align: left;">
+            <li>Regeneración de escudos (influenciando casi todos los shooters posteriores)</li>
+            <li>Combate vehicular integrado perfectamente</li>
+            <li>Narrativa cinematográfica sin cortes de carga</li>
+            <li>Modo multijugador que definió el estándar para Xbox Live</li>
+            <li>Diseño de niveles no lineal que permitía múltiples enfoques</li>
+        </ul>
+        
+        <p>El juego vendió más de 6 millones de copias y su éxito salvó la primera Xbox, convirtiéndose en el título definitorio de la consola.</p>
+        
+        <img src="img/final.jpg" alt="Legado de Halo CE">
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        
+        
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = '#1a73e8';
+            });
+            h1.style.color = '#1a73e8';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            toggle.checked = true;
+        }
+        
+        // Modo noche y dia
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = '#1a73e8';
+                });
+                h1.style.color = '#1a73e8';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = '#ffcc00';
+                });
+                h1.style.color = '#1e90ff';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
