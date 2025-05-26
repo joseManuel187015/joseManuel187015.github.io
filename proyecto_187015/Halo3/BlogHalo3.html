@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo 3: El Final de una Trilogía Legendaria</title>
+    <style>
+        :root {
+          --light: #d8dbe0;
+          --dark: #28292c;
+          --link: rgb(27, 129, 112);
+          --link-hover: rgb(24, 94, 82);
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+        h1 {
+            color: #1e90ff;
+            border-bottom: 3px solid #ffcc00;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #4fc3f7;
+        }
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+            color: #ffcc00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Toggle Switch Styles - Fixed centering */
+        .toggle-switch {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 80px;
+          height: 40px;
+          z-index: 9999;
+        }
+        
+        .toggle-switch label {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: var(--dark);
+          border-radius: 20px;
+          cursor: pointer;
+          border: 2px solid white;
+          box-sizing: border-box;
+        }
+        
+        .toggle-switch input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .toggle-switch .slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked ~ .slider {
+          background-color: var(--light);
+        }
+        
+        .toggle-switch .slider::before {
+          content: "";
+          position: absolute;
+          height: 26px;
+          width: 26px;
+          left: 6px;
+          bottom: 6px;
+          border-radius: 50%;
+          background-color: var(--dark);
+          transition: 0.3s;
+          box-shadow: inset 8px -2px 0px 0px var(--light);
+        }
+        
+        .toggle-switch input:checked ~ .slider::before {
+          transform: translateX(38px);
+          box-shadow: none;
+        }
+        
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        body.light-mode .container {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode table {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        body.light-mode th {
+            background-color: #e0e0e0;
+            color: #1a73e8;
+        }
+        
+        body.light-mode td {
+            border-color: #ddd;
+        }
+        
+        body.light-mode h1 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h2 {
+            color: #1a73e8;
+        }
+        
+        body.light-mode h3 {
+            color: #0288d1;
+        }
+
+        .mission {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .mission:last-child {
+            border-bottom: none;
+        }
+
+        .character-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        .skull {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .skull h3 {
+            color: #ff5252;
+        }
+        
+        body.light-mode .skull {
+            background-color: #e0e0e0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        .weapon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .weapon-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .weapon-card {
+            background: #e0e0e0;
+        }
+        
+        .equipment {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .factions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .faction {
+            width: 45%;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        body.light-mode .faction {
+            background: #e0e0e0;
+        }
+        
+        .terminal {
+            background-color: #1a237e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        body.light-mode .terminal {
+            background-color: #bbdefb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Halo 3: El Final de una Trilogía Legendaria</h1>
+
+        <h2>Introducción</h2>
+        <p>Halo 3 (2007) concluyó la trilogía original con una épica batalla por salvar la galaxia. El Jefe Maestro regresa a la Tierra para enfrentar al Covenant y al Flood en una campaña que abarca desde las junglas africanas hasta el Arca Installación 00. Con gráficos revolucionarios para su época y un sistema de Forge que cambiaría para siempre el multijugador, Halo 3 estableció nuevos estándares para los shooters.</p>
+        
+        <p>El juego introdujo el sistema de equipamiento, el guardado de clips (Teatro) y el emblemático modo Forge, permitiendo a los jugadores crear y compartir sus propios mapas.</p>
+
+        <h2>Misiones Principales</h2>
+        
+        <div class="mission">
+            <h3>Sierra 117</h3>
+            <p>El Jefe Maestro aterriza en la Tierra para rescatar al Sargento Johnson de las fuerzas Covenant. Esta misión muestra los nuevos gráficos del motor y presenta el combate en jungla, culminando con un enfrentamiento contra dos Scarabs.</p>
+            <img src="img/Mision1.jpg" alt="Misión Sierra 117">
+        </div>
+        
+        <div class="mission">
+            <h3>Crow's Nest</h3>
+            <p>El Jefe Maestro y los Marines defienden una base subterránea del ataque Covenant. Notable por sus intensos combates en interiores y la primera aparición del Brute Chieftain con martillo gravitatorio.</p>
+            <img src="img/Mision2.png" alt="Misión Crow's Nest">
+        </div>
+        
+        <div class="mission">
+            <h3>Tsavo Highway</h3>
+            <p>Una épica misión vehicular donde el jugador atraviesa puentes destruidos y combate múltiples wraiths y phantoms. Destaca por el uso del nuevo vehículo Chopper y los combates a gran escala.</p>
+            <img src="img/Mision3.png" alt="Misión Tsavo Highway">
+        </div>
+        
+        <div class="mission">
+            <h3>The Storm</h3>
+            <p>El Jefe Maestro y el Arbiter asaltan la ciudadela del Profeta de la Verdad para detener el activamiento de los anillos Halo. Incluye el icónico combate contra dos Scarabs simultáneos.</p>
+            <img src="img/Mision4.jpg" alt="Misión The Storm">
+        </div>
+        
+        <div class="mission">
+            <h3>The Ark</h3>
+            <p>La batalla se traslada al Arca, una instalación Forerunner fuera de la Vía Láctea. Combates épicos con el nuevo vehículo Hornet y la revelación del Halo en construcción.</p>
+            <img src="img/Mision5.png" alt="Misión The Ark">
+        </div>
+        
+        <div class="mission">
+            <h3>The Covenant</h3>
+            <p>Considerada una de las mejores misiones de la saga, incluye combates aéreos, asaltos a bases Covenant y la batalla contra el Profeta de la Verdad. Presenta el vehículo Scorpion mejorado.</p>
+            <img src="img/Mision6.png" alt="Misión The Covenant">
+        </div>
+        
+        <div class="mission">
+            <h3>Halo</h3>
+            <p>La misión final donde el Jefe Maestro activa el nuevo anillo Halo para destruir el Flood. Combates intensos contra Gravemind y la emocionante secuencia de escape en Warthog.</p>
+            <img src="img/Mision7.jpg" alt="Misión Halo">
+        </div>
+
+        <h2>Personajes Clave</h2>
+        <table>
+            <tr>
+                <th>Personaje</th>
+                <th>Rol</th>
+                <th>Importancia</th>
+                <th>Imagen</th>
+            </tr>
+            <tr>
+                <td>Jefe Maestro (John-117)</td>
+                <td>Protagonista</td>
+                <td>Líder de la ofensiva contra el Covenant y el Flood</td>
+                <td><img class="character-img" src="img/jefe.png"Jefe Maestro"></td>
+            </tr>
+            <tr>
+                <td>El Arbiter (Thel 'Vadam)</td>
+                <td>Protagonista</td>
+                <td>Líder de los Elites separatistas que se alían con los humanos</td>
+                <td><img class="character-img" src="img/inquisidor.png" alt="Arbiter"></td>
+            </tr>
+            <tr>
+                <td>Cortana</td>
+                <td>IA</td>
+                <td>Secuestrada por Gravemind, juega un papel clave en el desenlace</td>
+                <td><img class="character-img" src="img/cortana.png" alt="Cortana"></td>
+            </tr>
+            <tr>
+                <td>Profeta de la Verdad</td>
+                <td>Antagonista</td>
+                <td>Líder supremo del Covenant que busca activar los anillos</td>
+                <td><img class="character-img" src="img/profeta.jpg" alt="Profeta de la Verdad"></td>
+            </tr>
+            <tr>
+                <td>Sargento Johnson</td>
+                <td>Aliado</td>
+                <td>Marine veterano que lidera las fuerzas humanas</td>
+                <td><img class="character-img" src="img/sargento.png" alt="Sargento Johnson"></td>
+            </tr>
+            <tr>
+                <td>Miranda Keyes</td>
+                <td>Aliado</td>
+                <td>Capitana del UNSC que sacrifica su vida para detener a Verdad</td>
+                <td><img class="character-img" src="img/miranda.png" alt="Miranda Keyes"></td>
+            </tr>
+            <tr>
+                <td>Gravemind</td>
+                <td>Antagonista</td>
+                <td>Entidad colectiva del Flood que manipula eventos</td>
+                <td><img class="character-img" src="img/gravemind.png" alt="Gravemind"></td>
+            </tr>
+            <tr>
+                <td>343 Guilty Spark</td>
+                <td>Personaje ambiguo</td>
+                <td>Monitor Forerunner que ayuda y obstaculiza alternativamente</td>
+                <td><img class="character-img" src="img/guiltyspark.png" alt="Guilty Spark"></td>
+            </tr>
+        </table>
+
+        <h2>Nuevas Armas, Vehículos y Equipamiento</h2>
+        <div class="weapon-list">
+            <div class="weapon-card">
+                <h3>Martillo Gravitorio</h3>
+                <p>Arma cuerpo a cuerpo de los Brutes que lanza enemigos por los aires. Potente pero de corto alcance.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Cañón Espartan</h3>
+                <p>Lanzador de misiles portátil con seguimiento de objetivos. Efectivo contra vehículos y grupos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Rifle de Asalto MA5C</h3>
+                <p>Versión mejorada del rifle estándar con mira más precisa y menor dispersión.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Chopper</h3>
+                <p>Vehículo Brute con rueda de cuchillas frontal. Ideal para embestidas y combate vehicular.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Hornet</h3>
+                <p>Vehículo aéreo humano con capacidad para tres pasajeros y cañones automáticos.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Mongoose</h3>
+                <p>Vehículo ligero para dos pasajeros. Rápido pero sin armamento.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Equipo: Bubble Shield <span class="equipment">(Equipamiento)</span></h3>
+                <p>Genera un escudo esférico protector que bloquea ataques pero permite pasar a personas.</p>
+            </div>
+            <div class="weapon-card">
+                <h3>Equipo: Gravity Lift <span class="equipment">(Equipamiento)</span></h3>
+                <p>Proyecta un campo antigravedad que lanza personas y objetos hacia arriba.</p>
+            </div>
+        </div>
+
+        <h2>Facciones y Aliados</h2>
+        <div class="factions">
+            <div class="faction">
+                <h3>UNSC</h3>
+                <p>Fuerzas humanas que defienden la Tierra y lanzan la ofensiva final.</p>
+                <p><strong>Unidades:</strong> Marines, ODST, Spartans (Jefe Maestro)</p>
+            </div>
+            <div class="faction">
+                <h3>Elites Separatistas</h3>
+                <p>Antiguos miembros del Covenant que se alían con los humanos.</p>
+                <p><strong>Unidades:</strong> Elite Minor, Major, Ultra, Ranger</p>
+            </div>
+            <div class="faction">
+                <h3>Covenant Leales</h3>
+                <p>Dirigidos por el Profeta de la Verdad y compuestos principalmente por Brutes.</p>
+                <p><strong>Unidades:</strong> Brute Minor, Major, Chieftain, Grunts, Jackals</p>
+            </div>
+            <div class="faction">
+                <h3>Flood</h3>
+                <p>Parásito que amenaza con consumir toda vida en la galaxia.</p>
+                <p><strong>Formas:</strong> Infectados, Combat Forms, Carrier Forms, Pure Forms</p>
+            </div>
+        </div>
+
+        <div class="terminal">
+            <h3>Terminales Forerunner</h3>
+            <p>Halo 3 introdujo 7 terminales ocultos que contenían información crucial sobre el trasfondo del universo Halo:</p>
+            <ul>
+                <li>Revelan la historia de los Forerunners y su guerra contra los Flood</li>
+                <li>Explican el origen del Arca y su propósito</li>
+                <li>Detallan la relación entre los Forerunners y los humanos antiguos</li>
+                <li>Proporcionan contexto sobre la Librarian y el Didact</li>
+            </ul>
+            <p>Encontrar todos los terminales desbloquea el logro "Reclaimer" y contenido adicional.</p>
+        </div>
+
+        <h2>Calaveras (Skulls)</h2>
+        <div class="skull">
+            <h3>Modificadores de Juego en Halo 3</h3>
+            <p>Las calaveras en Halo 3 ofrecen modificadores que alteran la experiencia de juego y aumentan el puntaje en el modo Legendario:</p>
+            
+            <h3>Efectos de las Calaveras</h3>
+            <ul style="text-align: left;">
+                <li><strong>Iron:</strong> Reinicio de nivel al morir (sin checkpoints)</li>
+                <li><strong>Black Eye:</strong> Escudos solo se recargan con daño cuerpo a cuerpo</li>
+                <li><strong>Tough Luck:</strong> Enemigos esquivan ataques y nunca se rinden</li>
+                <li><strong>Catch:</strong> Enemigos lanzan más granadas</li>
+                <li><strong>Fog:</strong> Desactiva el sensor de movimiento</li>
+                <li><strong>Famine:</strong> Las armas contienen la mitad de munición</li>
+                <li><strong>Thunderstorm:</strong> Enemigos aparecen con rangos superiores</li>
+                <li><strong>Tilt:</strong> Los escudos enemigos son más resistentes</li>
+                <li><strong>Mythic:</strong> Enemigos tienen el doble de salud</li>
+                <li><strong>IWHBYD:</strong> Activa diálogos raros y divertidos</li>
+            </ul>
+            
+            <p>Encontrar estas calaveras requiere exploración exhaustiva de los niveles, con algunas escondidas en lugares casi inaccesibles.</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/2Ly7fw7UxII?si=DT_ZhEQckRpgmKC_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <p>Las calaveras añaden profundidad al juego y permiten personalizar la experiencia para mayor desafío o diversión.</p>
+        </div>
+
+        <h2>Legado de Halo 3</h2>
+        <p>Halo 3 marcó el final perfecto para la trilogía original con sus innovaciones:</p>
+        <ul style="text-align: left;">
+            <li><strong>Forge:</strong> Primer editor de mapas integrado en un shooter console</li>
+            <li><strong>Teatro:</strong> Sistema para guardar y compartir clips de juego</li>
+            <li><strong>Multijugador 4K:</strong> Uno de los primeros juegos en soportar 4 jugadores en split-screen</li>
+            <li><strong>Equipamiento:</strong> Nuevas habilidades tácticas como el Bubble Shield</li>
+            <li><strong>Logros:</strong> Sistema que recompensa completar desafíos específicos</li>
+            <li><strong>Terminales:</strong> Objetos coleccionables que expanden el lore</li>
+        </ul>
+        
+        <p>El juego vendió más de 14.5 millones de copias y mantuvo una comunidad activa durante años, especialmente en el modo multijugador. Su campaña cooperativa a 4 jugadores estableció un nuevo estándar para los shooters.</p>
+        
+        <img src="img/Halo3final.jpg" alt="Legado de Halo 3">
+        
+        <h2>Final Legendario</h2>
+        <p>El emotivo final de Halo 3 muestra al Jefe Maestro atrapado en el espacio tras activar el anillo Halo, declarando "Wake me, when you need me" antes de entrar en criosueño. Cortana envía una señal de auxilio mientras la nave deriva hacia un misterioso planeta, dejando el destino del héroe en suspenso hasta Halo 4.</p>
+    </div>
+
+    <!-- Botón Noche/Día -->
+    <div class="toggle-switch">
+        <label>
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const table = document.querySelector('table');
+        const th = document.querySelectorAll('th');
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelectorAll('h2');
+        const h3 = document.querySelectorAll('h3');
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const factions = document.querySelectorAll('.faction');
+        const terminal = document.querySelector('.terminal');
+        
+        // Check for saved user preference, if any
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.add('light-mode');
+            container.style.backgroundColor = '#fff';
+            container.style.color = '#212529';
+            table.style.backgroundColor = '#f5f5f5';
+            table.style.color = '#333';
+            th.forEach(element => {
+                element.style.backgroundColor = '#e0e0e0';
+                element.style.color = '#1a73e8';
+            });
+            h1.style.color = '#1a73e8';
+            h2.forEach(element => {
+                element.style.color = '#1a73e8';
+            });
+            h3.forEach(element => {
+                element.style.color = '#0288d1';
+            });
+            weaponCards.forEach(card => {
+                card.style.backgroundColor = '#e0e0e0';
+            });
+            factions.forEach(faction => {
+                faction.style.backgroundColor = '#e0e0e0';
+            });
+            terminal.style.backgroundColor = '#bbdefb';
+            toggle.checked = true;
+        }
+        
+        // Toggle dark/light mode
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+                container.style.backgroundColor = '#fff';
+                container.style.color = '#212529';
+                table.style.backgroundColor = '#f5f5f5';
+                table.style.color = '#333';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#e0e0e0';
+                    element.style.color = '#1a73e8';
+                });
+                h1.style.color = '#1a73e8';
+                h2.forEach(element => {
+                    element.style.color = '#1a73e8';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#0288d1';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#e0e0e0';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#e0e0e0';
+                });
+                terminal.style.backgroundColor = '#bbdefb';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.remove('light-mode');
+                container.style.backgroundColor = '#222';
+                container.style.color = '#e0e0e0';
+                table.style.backgroundColor = '#333';
+                table.style.color = '#e0e0e0';
+                th.forEach(element => {
+                    element.style.backgroundColor = '#444';
+                    element.style.color = '#ffcc00';
+                });
+                h1.style.color = '#1e90ff';
+                h2.forEach(element => {
+                    element.style.color = '#ffcc00';
+                });
+                h3.forEach(element => {
+                    element.style.color = '#4fc3f7';
+                });
+                weaponCards.forEach(card => {
+                    card.style.backgroundColor = '#333';
+                });
+                factions.forEach(faction => {
+                    faction.style.backgroundColor = '#333';
+                });
+                terminal.style.backgroundColor = '#1a237e';
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
